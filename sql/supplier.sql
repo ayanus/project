@@ -1,0 +1,6 @@
+CREATE TABLE Supplier (
+supplier_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+supplier_name VARCHAR(255) NOT NULL,
+tel VARCHAR(50) NOT NULL,
+address VARCHAR(255) NOT NULL,
+supplier_type INT(10) NOT NULL);

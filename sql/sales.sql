@@ -1,0 +1,4 @@
+CREATE TABLE Sales (
+    sales_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    sales_date DATETIME NOT NULL,
+    total DECIMAL(10, 2) NOT NULL);

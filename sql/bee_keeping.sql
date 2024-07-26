@@ -1,0 +1,4 @@
+CREATE TABLE Beekeeping (
+   b_keeping INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+   b_food VARCHAR(255) NOT NULL,
+   weather INT(10) NOT NULL);
