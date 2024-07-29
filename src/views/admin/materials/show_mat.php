@@ -1,3 +1,7 @@
+<?php
+    include 'C:/xampp/htdocs/project/config/database.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,22 +15,38 @@
         <div class="container">            
             <!-- สร้างปุ่มเพิ่มข้อมูลวัตถุดิบ โดยมีการอ้างอิงถึงไฟล์อื่น -->
             <div class="btn-add">
-            <a href="/project/src/controller/add.php"><button type="button" class="btn btn-primary">Add</button></a>
+            <a href="/project/src/controller/add.php"><button type="button" class="btn btn-primary mt-4">Add</button></a>
             </div>
 
             <div class="table">
-                <table border="1" align="left" width="50%" height="20%">
+                <table class="table table-striped table-hover mt-4">
                     <tr>
                         <th>No</th>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Date of order</th>
                         <th>Quantity</th>
                     </tr>
+                    
+                    <?php
+                        $sql = "SELECT * FROM materials";
+                        $result = mysqli_query($conn, $sql);
+                        while($row = mysqli_fetch_array($result)){ 
+                    ?>
+
+                <tr>
+                    <td><?php echo $row['material_id']; ?></td>
+                    <td><?php echo $row['material_name']; ?></td>
+                    <td><?php echo $row['material_type']; ?></td>
+                    <td><?php echo $row['quantity']; ?></td>
+                </tr>
+                    
+                    <?php 
+                        } mysqli_close($conn);
+                     ?>
+
                 </table>
             </div>
-
-            <div class="add"></div>
+            
             
         </div>
     </body>

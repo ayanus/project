@@ -10,22 +10,24 @@
 <body>
     <div class="container">
         <div class="form">
-            <form action="materials.php" method="post">
 
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="material_name">
+            <div class="alert alert-primary h4 text-center mt-4" role="alert">เพิ่มสินค้า</div>
 
-                    <label for="Quantity" class="form-label">Quantity</label>
-                    <input type="text" class="form-control" id="quantity" name="quantity">
-
-                    <label for="type" class="form-label">Type</label>
-                    <select class="form-select" id="type" name="material_type">
-                        <option value="1">อุปกรณ์</option>
-                        <option value="2">วัตถุดิบ</option><br>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-secondary">Reset</button>
+            <form action="/project/src/views/admin/materials/insert_mat.php" method="post">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="material_name">
                 
+                <label for="type" class="form-label mt-4">Type</label>
+                <select class="form-select" id="type" name="material_type">
+                    <option value="อุปกรณ์">อุปกรณ์</option>
+                    <option value="วัตถุดิบ">วัตถุดิบ</option>
+                </select>
+                
+                <label for="Quantity" class="form-label mt-4">Quantity</label>
+                <input type="text" class="form-control" id="quantity" name="quantity">
+
+                <input type="submit" name="1" class="btn btn-primary mt-4" value="Submit">
+                <input type="reset" name="2"class="btn btn-secondary mt-4" value="Reset">          
             </form>
         </div>
     </div>
