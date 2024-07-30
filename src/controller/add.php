@@ -11,7 +11,7 @@
     <div class="container">
         <div class="form">
 
-            <div class="alert alert-primary h4 text-center mt-4" role="alert">เพิ่มสินค้า</div>
+            <div class="alert alert-primary h4 text-center mt-4" role="alert">เพิ่มวัตถุดิบ</div>
 
             <form action="/project/src/views/admin/materials/insert_mat.php" method="post">
                 <label for="name" class="form-label">Name</label>
