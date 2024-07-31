@@ -14,7 +14,7 @@
     <body>
         <div class="container">    
             <div class="alert alert-success h4 text-center mt-4" role="alert">แสดงข้อมูลวัตถุดิบ</div>
-                <a href="/project/src/controller/add.php"><button type="button" class="btn btn-success">Add+</button></a>
+                <a href="/project/src/controller/material/add.php"><button type="button" class="btn btn-success">Add+</button></a>
                     <table class="table table-striped table-hover mt-4">
                         <tr>
                             <th>No</th>
