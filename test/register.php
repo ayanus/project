@@ -64,6 +64,16 @@
         <button class="btn btn-primary w-100 py-2 my-2" type="submit" name="register">Register</button>
         <p class="mt-2 text-body-secondary text-center">Don't have an account yet? <a href="login.php">Sign in</a> now</p>
     </form>
+
+    
+
+
+
+
+
+
+
+    
     </main>
 </body>
 </html>

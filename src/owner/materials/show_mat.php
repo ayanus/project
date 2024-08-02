@@ -14,13 +14,15 @@
     <body>
         <div class="container">    
             <div class="alert alert-success h4 text-center mt-4" role="alert">แสดงข้อมูลวัตถุดิบ</div>
-                <a href="/project/src/controller/material/add.php"><button type="button" class="btn btn-success">Add+</button></a>
+                <a href="add_mat.php"><button type="button" class="btn btn-success">Add+</button></a>
                     <table class="table table-striped table-hover mt-4">
                         <tr>
                             <th>No</th>
                             <th>Name</th>
                             <th>Type</th>
                             <th>Quantity</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         
                         <?php
@@ -34,6 +36,8 @@
                             <td><?php echo $row['material_name']; ?></td>
                             <td><?php echo $row['material_type']; ?></td>
                             <td><?php echo $row['quantity']; ?></td>
+                            <td><a href="" class="btn btn-warning">Edit</a></td>
+                            <td><a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger">Delete</a></td>
                         </tr>
                         
                         <?php 

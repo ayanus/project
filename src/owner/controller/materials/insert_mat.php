@@ -10,7 +10,7 @@
     // เรียกใช้คำสั่ง
     if ($stmt->execute()) {
         echo "<script>alert('บันทึกข้อมูลสำเร็จ')</script>";
-        echo "<script>window.location = '/project/src/views/admin/materials/show_mat.php'</script>";
+        echo "<script>window.location = '../../materials/show_mat.php'</script>";
     } else {
         echo "<script>alert('บันทึกข้อมูลไม่สำเร็จ')</script>";
     }

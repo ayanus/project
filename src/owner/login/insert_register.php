@@ -57,12 +57,12 @@
                 header("Location: /project/src/views/admin/login/register.php");
                 exit();
             } else {
-                //เข้ารหัส password
-                $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
-                //เพิ่มข้อมูลลงใน database
+                // //เข้ารหัส password
+                // $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
+                // //เพิ่มข้อมูลลงใน database
                 try {
                     $stmt = $conn->prepare("INSERT INTO employee (employee_name, email, username, password) VALUES (?, ?, ?, ?)");
-                    $stmt->bind_param("ssss", $employee_name, $email, $username, $hashedpassword);
+                    $stmt->bind_param("ssss", $employee_name, $email, $username, $password);
                     $stmt->execute();
                     $stmt->close();
                     $_SESSION['success'] = "Register successfully";

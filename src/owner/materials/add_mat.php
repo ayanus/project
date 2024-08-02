@@ -13,9 +13,9 @@
 
             <div class="alert alert-primary h4 text-center mt-4" role="alert">เพิ่มวัตถุดิบ</div>
 
-            <form action="/project/src/views/admin/materials/insert_mat.php" method="post">
+            <form action="../controller/materials/insert_mat.php" method="post">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="material_name">
+                <input type="text" class="form-control" id="name" name="material_name" required>
                 
                 <label for="type" class="form-label mt-4">Type</label>
                 <select class="form-select" id="type" name="material_type">
@@ -24,7 +24,7 @@
                 </select>
                 
                 <label for="Quantity" class="form-label mt-4">Quantity</label>
-                <input type="text" class="form-control" id="quantity" name="quantity">
+                <input type="text" class="form-control" id="quantity" name="quantity" required>
 
                 <input type="submit" name="1" class="btn btn-primary mt-4" value="Submit">
                 <input type="reset" name="2"class="btn btn-secondary mt-4" value="Reset">          
