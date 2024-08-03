@@ -1,16 +1,206 @@
-body {
+* {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-.header {
+:root {
+    --primary: #FFFF66	;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --danger: #dc3545;
+    --info: #17a2b8;
+    --dark: #343a40;
+    --black1: #563a06;
+    --black2: #000;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+/* navigation */
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: var(--primary);
+    border-left: 20px solid var(--primary);
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered{
+    background-color: var(--white);
+
+}
+
+.navigation ul li:nth-child(1) {
+    margin-bottom: 30px;
+    pointer-events: none;
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--black1);
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+    color: var(--black2);
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 75px;
+    text-align: start;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75rem;
+    margin-left: 30px;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0 30px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.navigation ul li:hover a::before,
+.navigation ul li.hovered a::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--white);
+    pointer-events: none;
+
+}
+
+.navigation ul li:hover a::after,
+.navigation ul li.hovered a::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--white);
+    pointer-events: none;
+
+}
+
+/* main */
+
+.main {
+    position: absolute;
+    left: 300px;
+    width: calc(100% - 300px);
+    min-height: 100vh;
+    background-color: var(--white);
+    transition: 0.5s;
+}
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FDF5E6;
+    padding:  0 10px;
 }
 
-.bi me-2 {
-    left: 20%;
+.toggle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.search {
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+
+.search label {
+    position: relative;
+    width: 100%;
+}
+
+.search label input {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    padding-left: 35px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid var(--dark);
+}
+
+.search label ion-icon {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 1.2rem;
+}
+
+.user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
 }
 
