@@ -26,7 +26,7 @@
                         </tr>
                         
                         <?php
-                            $sql = "SELECT * FROM materials";
+                            $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
                             $result = mysqli_query($conn, $sql);
                             while($row = mysqli_fetch_array($result)){ 
                         ?>
@@ -34,10 +34,10 @@
                         <tr>
                             <td><?php echo $row['material_id']; ?></td>
                             <td><?php echo $row['material_name']; ?></td>
-                            <td><?php echo $row['material_type']; ?></td>
+                            <td><?php echo $row['type_name']; ?></td>
                             <td><?php echo $row['quantity']; ?></td>
-                            <td><a href="" class="btn btn-warning">Edit</a></td>
-                            <td><a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger">Delete</a></td>
+                            <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">Edit</a></td>
+                            <td><a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                         </tr>
                         
                         <?php 
@@ -48,3 +48,12 @@
         </div>
     </body>
 </html>
+
+<script language="Javascript">
+    function Del(mypage){
+        var agree=confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
+        if(agree){
+            window.location = mypage;
+        }
+    }
+</script>

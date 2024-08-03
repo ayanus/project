@@ -3,3 +3,7 @@ CREATE TABLE Materials (
     material_name VARCHAR(255) NOT NULL,
     quantity INT(10) NOT NULL, 
     material_type INT(10) NOT NULL);
+
+ALTER TABLE Materials DROP COLUMN material_type;
+
+ALTER TABLE Materials ADD COLUMN material_type INT(10)NOT NULL;
