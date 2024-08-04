@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../public/css/style.css">
-</head>
-<body>
-    <div class="container">
-        <!-- navigation -->
-        <div class="navigation">
+<div class="navigation">
             <ul>
                 <li>
                     <a href="#">
-                    <img width="120" src="../public/logo.png" alt="Big Bee Farm Logo">    
+                    <img width="120" src="/project/public/logo.png" alt="Big Bee Farm Logo">    
                     </a>
                 </li>
 
@@ -90,27 +79,3 @@
                 </li>
             </ul>
         </div>
-
-        <!-- main -->
-         <div class="main">
-            <div class="topbar">
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
-
-                <div class="user">
-                    <img src="https://cdna.artstation.com/p/assets/images/images/026/941/604/large/kaustubh-chaudhary-doremon-pink.jpg?1590151532" alt="Image">
-                </div>
-            </div>
-         </div>
-    </div>
-
-</body>
-</html>
-
-<script src="../public/js/main.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
