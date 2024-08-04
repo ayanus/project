@@ -1,12 +1,34 @@
-<div class="topbar">
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
+<?php
+session_start();
 
-                <div class="user">
-                    <img src="https://cdna.artstation.com/p/assets/images/images/026/941/604/large/kaustubh-chaudhary-doremon-pink.jpg?1590151532" alt="Image">
-                </div>
+// ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// ตรวจสอบว่าเป็น owner หรือไม่
+if ($_SESSION['role'] !== 'owner') {
+    echo "You do not have permission to view this page.";
+    exit();
+}
+?>
+
+<div class="topbar">
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                        <ion-icon name="search-outline"></ion-icon>
+                </label>
             </div>
+
+            <div class="user">
+                <p>Welcome K.<?php echo $_SESSION['username']; ?></p>
+            </div>
+
+            <div class="logout">
+            <form action="../logout.php" method="post">
+                <input type="submit" class="btn btn-danger" value="Logout">
+            </form>
+        </div>
+        </div>

@@ -34,7 +34,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/project/src/owner/materials/show_mat.php">
                         <span class="icon">
                             <ion-icon name="storefront-outline"></ion-icon>
                         </span>
@@ -70,7 +70,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/project/src/owner/suppliers/show_sup.php">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -79,3 +79,4 @@
                 </li>
             </ul>
         </div>
+

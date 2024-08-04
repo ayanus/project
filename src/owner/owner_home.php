@@ -1,30 +1,23 @@
-<?php
-session_start();
-
-// ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// ตรวจสอบว่าเป็น owner หรือไม่
-if ($_SESSION['role'] !== 'owner') {
-    echo "You do not have permission to view this page.";
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Owner Home</title>
+    <link rel="stylesheet" href="/project/public/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Welcome, owner!</h1>
-    <p>You are logged in as <?php echo $_SESSION['username']; ?>.</p>
-    <form action="../logout.php" method="post">
-        <input type="submit" value="Logout">
-    </form>
+    <div class="containerr">
+        <?php include '../../public/php/nav.php'; ?>
+    <div class="main">
+    <?php include '../../public/php/topbar.php'; ?>
+
+    </div>
+    </div>
+
+    <script src="/project/public/js/main.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </body>
 </html>

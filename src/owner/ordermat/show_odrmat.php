@@ -18,17 +18,15 @@
         <div class="main">
         <?php include '../../../public/php/topbar.php'; ?>
             <div class="container">    
-                <div class="alert alert-success h4 text-center mt-4 " role="alert">แสดงข้อมูลวัตถุดิบ</div>
-                    <a href="add_mat.php"><button type="button" class="btn btn-success">Add+</button></a>
-                    <a href="../ordermat/show_odrmat.php"><button type="button" class="btn btn-primary">ซื้อสินค้า</button></a>
+                <div class="alert alert-dark h4 text-center mt-4 " role="alert">ข้อมูลวัตถุดิบ <ion-icon name="chevron-forward-outline"></ion-icon> สั่งซื้อสินค้า</div>
+                    <a href="../materials/show_mat.php"><button type="button" class="btn btn-warning">ย้อนกลับ</button></a>
 
                         <table class="table table-striped table-hover mt-4">
                             <tr>
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Quantity</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th>Cart</th>
                             </tr>
                             
                             <?php
@@ -41,8 +39,12 @@
                                 <td><?php echo $row['material_name']; ?></td>
                                 <td><?php echo $row['type_name']; ?></td>
                                 <td><?php echo $row['quantity']; ?></td>
-                                <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">Edit</a></td>
-                                <td><a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
+                                <td><a href="#">
+                                        <span class="icon">
+                                            <ion-icon name="cart-outline"></ion-icon>                      
+                                        </span>
+                                    </a>
+                                </td>
                             </tr>
                             
                             <?php 

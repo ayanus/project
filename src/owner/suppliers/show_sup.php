@@ -18,38 +18,39 @@
         <div class="main">
         <?php include '../../../public/php/topbar.php'; ?>
             <div class="container">    
-                <div class="alert alert-success h4 text-center mt-4 " role="alert">แสดงข้อมูลวัตถุดิบ</div>
-                    <a href="add_mat.php"><button type="button" class="btn btn-success">Add+</button></a>
-                    <a href="../ordermat/show_odrmat.php"><button type="button" class="btn btn-primary">ซื้อสินค้า</button></a>
-
+            <div class="alert alert-success h4 text-center mt-4 " role="alert">แสดงข้อมูลวัตถุดิบ</div>
+                    <a href="add_sup.php"><button type="button" class="btn btn-success">Add+</button></a>
                         <table class="table table-striped table-hover mt-4">
                             <tr>
+                                <th>No</th>
                                 <th>Name</th>
+                                <th>Tel</th>
+                                <th>Address</th>
                                 <th>Type</th>
-                                <th>Quantity</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
-                            
+
                             <?php
-                                $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
+                                $sql = "SELECT * FROM supplier ORDER BY supplier_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
 
                             <tr>
-                                <td><?php echo $row['material_name']; ?></td>
-                                <td><?php echo $row['type_name']; ?></td>
-                                <td><?php echo $row['quantity']; ?></td>
-                                <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">Edit</a></td>
-                                <td><a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
+                                <td><?php echo $row['supplier_id']; ?></td>
+                                <td><?php echo $row['supplier_name']; ?></td>
+                                <td><?php echo $row['tel']; ?></td>
+                                <td><?php echo $row['address']; ?></td>
+                                <td><?php echo $row['supplier_type']; ?></td>
+                                <td><a href="../controller/materials/edit_mat.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-warning">Edit</a></td>
+                                <td><a href="../controller/materials/delete_mat.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                             </tr>
                             
                             <?php 
                                 } mysqli_close($conn);
                             ?>
-
-                        </table>
+                            </table>
                     </div>
             </div>
     </div>
