@@ -4,3 +4,5 @@ supplier_name VARCHAR(255) NOT NULL,
 tel VARCHAR(50) NOT NULL,
 address VARCHAR(255) NOT NULL,
 supplier_type INT(10) NOT NULL);
+
+ALTER TABLE Supplier ADD COLUMN material_name VARCHAR(255)NOT NULL;

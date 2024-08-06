@@ -18,32 +18,32 @@
         <div class="main">
         <?php include '../../../public/php/topbar.php'; ?>
             <div class="container">    
-                <div class="alert alert-light h4 text-left mt-4 " role="alert">ข้อมูลวัตถุดิบ</div>
-                    <a href="add_mat.php"><button type="button" class="btn btn-success">Add+</button></a>
-                    <a href="../ordermat/show_odrmat.php"><button type="button" class="btn btn-primary">ซื้อวัตถุดิบ</button></a>
+                <div class="alert alert-success h4 text-center mt-4 " role="alert">สินค้า</div>
+                    <a href="add_pro.php"><button type="button" class="btn btn-success">Add+</button></a>
 
                         <table class="table table-striped table-hover mt-4">
                             <tr>
-                                <th>ชื่อ</th>
-                                <th>ประเภทสินค้า</th>
-                                <th>จำนวนคงเหลือ</th>
-                                <th>หน่วย</th>
-                                <th> </th>
+                                <th>Name</th>
+                                <th>picture</th>
+                                <th>price</th>
+                                <th>quantity</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                             
                             <?php
-                                $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
+                                $sql = "SELECT * FROM products ORDER BY product_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
 
                             <tr>
-                                <td><?php echo $row['material_name']; ?></td>
-                                <td><?php echo $row['type_name']; ?></td>
+                                <td><?php echo $row['product_name']; ?></td>
+                                <td><?php echo $row['picture']; ?></td>
+                                <td><?php echo $row['price']; ?></td>
                                 <td><?php echo $row['quantity']; ?></td>
-                                <td><?php echo $row['material_unit']; ?></td>
-                                <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">แก้ไข</a>
-                                <a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
+                                <td><a href="../controller/materials/edit_mat.php?product_id=<?=$row['product_id']?>" class="btn btn-warning">Edit</a></td>
+                                <td><a href="../controller/materials/delete_mat.php?product_id=<?=$row['product_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                             </tr>
                             
                             <?php 

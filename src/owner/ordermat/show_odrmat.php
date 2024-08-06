@@ -23,14 +23,15 @@
 
                         <table class="table table-striped table-hover mt-4">
                             <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Quantity</th>
-                                <th>Cart</th>
+                                <th>ชื่อ</th>
+                                <th>ประเภทสินค้า</th>
+                                <th>จำนวนคงเหลือ</th>
+                                <th>Supplier</th>
+                                <th>สั่งซื้อ</th>
                             </tr>
-                            
+                        
                             <?php
-                                $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
+                                $sql = "SELECT materials.material_name, materials.quantity, Type_Mat.type_name, Supplier.supplier_name FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id INNER JOIN Supplier ON Supplier.material_name = materials.material_name ORDER BY materials.material_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
@@ -39,6 +40,7 @@
                                 <td><?php echo $row['material_name']; ?></td>
                                 <td><?php echo $row['type_name']; ?></td>
                                 <td><?php echo $row['quantity']; ?></td>
+                                <td><?php echo $row['supplier_name']; ?></td>
                                 <td><a href="#">
                                         <span class="icon">
                                             <ion-icon name="cart-outline"></ion-icon>                      

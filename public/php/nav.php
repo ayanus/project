@@ -1,17 +1,8 @@
 <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="/project/src/owner/owner_home.php">
                     <img width="120" src="/project/public/logo.png" alt="Big Bee Farm Logo">    
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title">Dashboard</span>
                     </a>
                 </li>
 
@@ -61,7 +52,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/project/src/owner/products/show_pro.php">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
@@ -77,6 +68,16 @@
                         <span class="title">Supplier</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                        <ion-icon name="person-outline"></ion-icon>                        
+                    </span>
+                        <span class="title">ข้อมูลพนักงาน</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
 

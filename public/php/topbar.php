@@ -27,7 +27,7 @@ if ($_SESSION['role'] !== 'owner') {
             </div>
 
             <div class="logout">
-            <form action="../logout.php" method="post">
+            <form action="/project/src/logout.php" method="post">
                 <input type="submit" class="btn btn-danger" value="Logout">
             </form>
         </div>

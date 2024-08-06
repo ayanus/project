@@ -4,9 +4,11 @@
     $tel = $_POST['tel'];
     $address = $_POST['address'];
     $supplier_type = $_POST['supplier_type'];
+    $material_name = $_POST['material_name'];
 
-    $stmt = $conn->prepare("INSERT INTO supplier (supplier_name, tel, address, supplier_type) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $supplier_name, $tel, $address, $supplier_type);
+
+    $stmt = $conn->prepare("INSERT INTO supplier (supplier_name, tel, address, supplier_type, material_name	) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $supplier_name, $tel, $address, $supplier_type, $material_name);
     
     // เรียกใช้คำสั่ง
     if ($stmt->execute()) {
