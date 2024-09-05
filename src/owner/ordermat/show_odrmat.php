@@ -15,27 +15,32 @@
     <body>
     <div class="containerr">
         <?php include '../../../public/php/nav.php'; ?>
-        <div class="main">
+        
+        <div class="top">
         <?php include '../../../public/php/topbar.php'; ?>
-            <div class="container">    
-                <div class="alert alert-dark h4 text-center mt-4 " role="alert">ข้อมูลวัตถุดิบ <ion-icon name="chevron-forward-outline"></ion-icon> สั่งซื้อสินค้า</div>
-                    <a href="../materials/show_mat.php"><button type="button" class="btn btn-warning">ย้อนกลับ</button></a>
+        
+        <div class="main">
+            <div class="container">   
+            <div class="header">สั่งซื้อวัตถุดิบ</div>
 
-                        <table class="table table-striped table-hover mt-4">
+                        <table class="table">
+                            <thead class="table-dark">
                             <tr>
                                 <th>ชื่อ</th>
-                                <th>ประเภทสินค้า</th>
-                                <th>จำนวนคงเหลือ</th>
+                                <th>ประเภทวัตถุดิบ</th>
+                                <th>คงเหลือ</th>
                                 <th>Supplier</th>
                                 <th>สั่งซื้อ</th>
                             </tr>
+                            </thead>
                         
                             <?php
                                 $sql = "SELECT materials.material_name, materials.quantity, Type_Mat.type_name, Supplier.supplier_name FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id INNER JOIN Supplier ON Supplier.material_name = materials.material_name ORDER BY materials.material_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
-
+                            
+                            <tbody>
                             <tr>
                                 <td><?php echo $row['material_name']; ?></td>
                                 <td><?php echo $row['type_name']; ?></td>
@@ -48,6 +53,7 @@
                                     </a>
                                 </td>
                             </tr>
+                            </tbody>
                             
                             <?php 
                                 } mysqli_close($conn);

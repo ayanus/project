@@ -15,12 +15,19 @@
 <body>
 <div class="containerr">
         <?php include '../../../public/php/nav.php'; ?>
-        <div class="main">
+        
+        <div class="top">
         <?php include '../../../public/php/topbar.php'; ?>
-    <div class="container">
+        
+        <div class="main">
+            <div class="container"> 
         <div class="form">
 
-            <div class="alert alert-primary h4 text-center mt-4" role="alert">เพิ่มวัตถุดิบ</div>
+        <div class="header">
+                <a href="show_mat.php">วัตถุดิบ </a>
+                <a1>/</a1>
+                <a2>เพิ่มวัตถุดิบ</a2>
+            </div>
 
             <form action="../controller/materials/insert_mat.php" method="post">
                 <label for="name" class="form-label">ชื่อ</label>

@@ -9,9 +9,12 @@
 <body>
     <div class="containerr">
         <?php include '../../public/php/nav.php'; ?>
-    <div class="main">
-    <?php include '../../public/php/topbar.php'; ?>
-
+    
+    <div class="top">
+        <?php include '../../public/php/topbar.php'; ?>
+        
+        <div class="main">
+            <div class="container">  
     </div>
     </div>
 

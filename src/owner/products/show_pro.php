@@ -15,13 +15,17 @@
     <body>
     <div class="containerr">
         <?php include '../../../public/php/nav.php'; ?>
-        <div class="main">
+        
+        <div class="top">
         <?php include '../../../public/php/topbar.php'; ?>
-            <div class="container">    
-                <div class="alert alert-success h4 text-center mt-4 " role="alert">สินค้า</div>
+        
+        <div class="main">
+            <div class="container">      
+                <div class="header">สินค้า</div>
                     <a href="add_pro.php"><button type="button" class="btn btn-success">Add+</button></a>
 
-                        <table class="table table-striped table-hover mt-4">
+                    <table class="table mt-4">
+                            <thead class="table-dark">
                             <tr>
                                 <th>Name</th>
                                 <th>picture</th>
@@ -30,6 +34,7 @@
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
+                            </thead>
                             
                             <?php
                                 $sql = "SELECT * FROM products ORDER BY product_id";
@@ -37,6 +42,7 @@
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
 
+                            <tbody>
                             <tr>
                                 <td><?php echo $row['product_name']; ?></td>
                                 <td><?php echo $row['picture']; ?></td>
@@ -45,6 +51,7 @@
                                 <td><a href="../controller/materials/edit_mat.php?product_id=<?=$row['product_id']?>" class="btn btn-warning">Edit</a></td>
                                 <td><a href="../controller/materials/delete_mat.php?product_id=<?=$row['product_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                             </tr>
+                            </tbody>
                             
                             <?php 
                                 } mysqli_close($conn);

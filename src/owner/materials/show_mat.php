@@ -15,14 +15,18 @@
     <body>
     <div class="containerr">
         <?php include '../../../public/php/nav.php'; ?>
-        <div class="main">
-        <?php include '../../../public/php/topbar.php'; ?>
-            <div class="container">    
-                <div class="alert alert-light h4 text-left mt-4 " role="alert">ข้อมูลวัตถุดิบ</div>
-                    <a href="add_mat.php"><button type="button" class="btn btn-success">Add+</button></a>
-                    <a href="../ordermat/show_odrmat.php"><button type="button" class="btn btn-primary">ซื้อวัตถุดิบ</button></a>
 
-                        <table class="table table-striped table-hover mt-4">
+        <div class="top">
+            <?php include '../../../public/php/topbar.php'; ?>
+        
+            <div class="main">
+                <div class="container">    
+                    <div class="header">วัตถุดิบ</div>
+                    <a href="add_mat.php"><button type="button" class="btn btn-success">เพิ่มวัตถุดิบ+</button></a>
+
+                    <div class="content"> 
+                        <table class="table mt-4">
+                            <thead class="table-dark ">
                             <tr>
                                 <th>ชื่อ</th>
                                 <th>ประเภทสินค้า</th>
@@ -30,6 +34,7 @@
                                 <th>หน่วย</th>
                                 <th> </th>
                             </tr>
+                            </thead>
                             
                             <?php
                                 $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
@@ -37,6 +42,7 @@
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
 
+                            <tbody>
                             <tr>
                                 <td><?php echo $row['material_name']; ?></td>
                                 <td><?php echo $row['type_name']; ?></td>
@@ -45,6 +51,7 @@
                                 <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">แก้ไข</a>
                                 <a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
                             </tr>
+                            </tbody>
                             
                             <?php 
                                 } mysqli_close($conn);
@@ -52,7 +59,9 @@
 
                         </table>
                     </div>
+                </div>
             </div>
+        </div>
     </div>
 
     <script src="/project/public/js/main.js"></script>

@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300&family=Sarabun:wght@100;300;400&display=swap');
 * {
-    font-family: Arial, sans-serif;
+    font-family: 'Kanit', 'Sarabun';
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -29,12 +30,14 @@ body {
 /* navigation */
 .navigation {
     position: fixed;
-    width: 250px;
+    width: 230px;
     height: 100%;
-    background-color: var(--primary);
-    border-left: 20px solid var(--primary);
+    background-color: #FFFAFA;
     transition: 0.5s;
     overflow: hidden;
+    margin-top: 60px;
+    z-index: 1000;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .navigation ul {
@@ -48,21 +51,12 @@ body {
     position: relative;
     width: 100%;
     list-style: none;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
 }
 
 .navigation ul li:hover,
 .navigation ul li.hovered{
-    background-color: var(--white);
-
-}
-
-.navigation ul li:nth-child(1) {
-    margin-bottom: 30px;
-    pointer-events: none;
-    margin-left: 0;
-    margin-top: 5%;
+    background-color: #FFFF66;
+    
 }
 
 .navigation ul li a {
@@ -71,12 +65,8 @@ body {
     width: 100%;
     display: flex;
     text-decoration: none;
-    color: var(--black1);
-}
-
-.navigation ul li:hover a,
-.navigation ul li.hovered a {
-    color: var(--black2);
+    color: #343a40;
+    font-weight: 500;
 }
 
 .navigation ul li a .icon {
@@ -89,8 +79,8 @@ body {
 }
 
 .navigation ul li a .icon ion-icon {
-    font-size: 1.50rem;
-    margin-left: 5px;
+    font-size: 1.2rem;
+    margin-left: 2px;
 }
 
 .navigation ul li a .title {
@@ -103,96 +93,52 @@ body {
     white-space: nowrap;
 }
 
-.navigation ul li:hover a::before,
-.navigation ul li.hovered a::before {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: -50px;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px 35px 0 10px var(--white);
-    pointer-events: none;
-}
-
-.navigation ul li:hover a::after,
-.navigation ul li.hovered a::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: -50px;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px -35px 0 10px var(--white);
-    pointer-events: none;
-}
-
 .navigation ul li a.active {
     background-color: var(--white);
     color: var(--black2);
+    font-weight: bold;
+}
+
+.navigation ul li a::after{
+    content: '';
+    position: absolute;
+    background-color: #f5f5f5;
+
 }
 
 /* main */
-
 .main {
     position: absolute;
-    left: 300px;
-    width: calc(100% - 300px);
+    left: 230px;
+    width: calc(100% - 230px);
     min-height: 100vh;
-    background-color: var(--white);
+    background-color: #F4F2F2;
     transition: 0.5s;
     overflow-y: auto;
+    
+}
+
+.top {
+    position: fixed;
+    width:100%;
+    min-height: 100vh;
+    z-index: 900;
+}
+
+.topbar ul li{
+    margin-top: 10px;
+    list-style: none;
 }
 
 .topbar {
-    width: 95%;
-    height: 80px;
+    width: 100%;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 10px;
-}
-
-.search {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-}
-
-.topbar .search {
-    position: relative;
-    width: 400px;
-    margin-right: 20px;
-    margin-top: 10px;
-}
-
-.search label {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.search label input {
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    padding: 5px 20px;
-    padding-left: 40px;
-    font-size: 18px;
-    outline: none;
-    border: 1px solid var(--dark);
-}
-
-.search label ion-icon {
-    position: absolute;
-    left: 10px;
-    font-size: 1.5rem;
+    background-color: #343a40;
+    z-index: 900;
 }
 
 .user {
@@ -200,9 +146,9 @@ body {
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    right: 60px;
-    margin-top: 25px;
-
+    right: 70px;
+    margin-top: 18px;
+    color: #FFFAFA;
 }
 
 .logout {
@@ -211,7 +157,57 @@ body {
     margin-top: 10px;
 }
 
+.logout .icon{
+    color: #FFFAFA;
+    font-size: 1.50rem;
+}
+
 .container {
-    margin-left: 10px;
+    margin-left: 30px;
     width: 95%;
+}
+
+.header {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 0 10px;
+    background-color: #FFFAFA;
+    margin-top: 20px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    /* font-weight: 590; */
+    font-size: 25px;
+    padding-left: 20px;
+}
+
+.header a{
+    text-decoration: none;
+    color: #343a40;
+    padding-right: 15px;
+}
+
+.header a1,a2{
+    color: #343a40;
+    padding-right: 15px;
+    opacity: 0.5;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    padding: 0 10px;
+    background-color: #FFFAFA;
+    margin-top: 20px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
 }

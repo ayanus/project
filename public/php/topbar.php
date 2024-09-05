@@ -14,21 +14,24 @@ if ($_SESSION['role'] !== 'owner') {
 }
 ?>
 
-<div class="topbar">
-            <div class="search">
-                <label>
-                    <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                </label>
-            </div>
+<div class="topbar"> 
+    <ul>
+        <li>
+            <a href="/project/src/owner/owner_home.php">
+                <img width="120" src="/project/public/logo.png" alt="Big Bee Farm Logo">                    
+            </a>
+        </li>
+    </ul>
+    
+    <div class="user">
+        <p>Welcome K.<?php echo $_SESSION['username']; ?></p>
+    </div>
 
-            <div class="user">
-                <p>Welcome K.<?php echo $_SESSION['username']; ?></p>
-            </div>
-
-            <div class="logout">
-            <form action="/project/src/logout.php" method="post">
-                <input type="submit" class="btn btn-danger" value="Logout">
-            </form>
-        </div>
-        </div>
+    <div class="logout">
+        <a href="/project/src/logout.php">
+            <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>  
+            </span>          
+        </a>
+    </div>
+</div>

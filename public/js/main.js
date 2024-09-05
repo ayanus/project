@@ -20,10 +20,10 @@
 //     });
 // });
 
-const activePage = wimdow.location.pathname;
-const navlinks = document.querySelectorAll('.navigation ul li a');
-ForEach(link => {
-    if(link.href.includes(activePage)){
-    console.log('$active');  
-}
-})
+// const activePage = window.location.pathname;
+// const navlinks = document.querySelectorAll('.navigation ul li a');
+// ForEach(link => {
+//     if(link.href.includes(activePage)){
+//     console.log('$active');  
+// }
+// })

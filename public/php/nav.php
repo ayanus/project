@@ -1,8 +1,11 @@
 <div class="navigation">
             <ul>
                 <li>
-                    <a href="/project/src/owner/owner_home.php">
-                    <img width="120" src="/project/public/logo.png" alt="Big Bee Farm Logo">    
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="receipt-outline"></ion-icon>
+                        </span>
+                        <span class="title">การขาย</span>
                     </a>
                 </li>
 
@@ -11,16 +14,7 @@
                         <span class="icon">
                             <ion-icon name="analytics-outline"></ion-icon>
                         </span>
-                        <span class="title">ข้อมูลผึ้ง</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="bug-outline"></ion-icon>
-                        </span>
-                        <span class="title">การเลี้ยงผึ้ง</span>
+                        <span class="title">ผึ้ง</span>
                     </a>
                 </li>
 
@@ -34,20 +28,11 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/project/src/owner/ordermat/show_odrmat.php">
                         <span class="icon">
-                        <ion-icon name="aperture-outline"></ion-icon>
+                            <ion-icon name="storefront-outline"></ion-icon>
                         </span>
-                        <span class="title">การผลิต</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="receipt-outline"></ion-icon>
-                        </span>
-                        <span class="title">การขาย</span>
+                        <span class="title">การสั่งซื้อวัตถุดิบ</span>
                     </a>
                 </li>
 
@@ -57,6 +42,15 @@
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
                         <span class="title">สินค้า</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                        <ion-icon name="aperture-outline"></ion-icon>
+                        </span>
+                        <span class="title">การผลิต</span>
                     </a>
                 </li>
 
@@ -74,7 +68,7 @@
                         <span class="icon">
                         <ion-icon name="person-outline"></ion-icon>                        
                     </span>
-                        <span class="title">ข้อมูลพนักงาน</span>
+                        <span class="title">พนักงาน</span>
                     </a>
                 </li>
 
