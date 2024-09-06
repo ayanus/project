@@ -16,17 +16,19 @@ if (isset($_POST['material_id']) && is_numeric($_POST['material_id'])) {
                 WHERE material_id = $id";
                 
         if (mysqli_query($conn, $sql)) {
-            echo "ข้อมูลถูกอัปเดตเรียบร้อยแล้ว";
-            header("Location: ../../materials/show_mat.php");
+            echo "<script>alert('ข้อมูลถูกอัปเดตเรียบร้อยแล้ว')</script>";
+            echo "<script>window.location = '../../materials/show_mat.php'</script>";
         } else {
             echo "Error updating record: " . mysqli_error($conn);
         }
     } else {
-        echo "ข้อมูลที่ต้องการอัปเดตไม่ครบ";
+        echo "<script>alert('ข้อมูลที่ต้องการอัปเดตไม่ครบ')</script>";
     }
 
     mysqli_close($conn);
 } else {
-    echo "Material ID ไม่ถูกต้อง";
+    echo "<script>alert('Material ID ไม่ถูกต้อง')</script>";
 }
 ?>
+
+

@@ -32,7 +32,7 @@
                         <span class="icon">
                             <ion-icon name="storefront-outline"></ion-icon>
                         </span>
-                        <span class="title">การสั่งซื้อวัตถุดิบ</span>
+                        <span class="title">สั่งซื้อวัตถุดิบ</span>
                     </a>
                 </li>
 

@@ -4,7 +4,6 @@
     $sql="SELECT * FROM materials WHERE material_id = $id";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +37,10 @@
                         <form action="update_mat.php" method="post">
                             <input type="hidden" name="material_id" value="<?= isset($row['material_id']) ? $row['material_id'] : '' ?>">
                             
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">ชื่อสินค้า</label>
                                 <input type="text" class="form-control" id="name" name="material_name" value="<?= isset($row['material_name']) ? $row['material_name'] : '' ?>">
                             
-                            <label for="type" class="form-label mt-4">Type</label>
+                            <label for="type" class="form-label mt-4">ประเภทสินค้า</label>
                                 <select class="form-select" aria-label="Default select example" id="type" name="material_type">
                                     <?php
                                     $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
@@ -55,14 +54,14 @@
                                     ?>
                                 </select>
 
-                            <label for="Quantity" class="form-label mt-4">Quantity</label>
+                            <label for="Quantity" class="form-label mt-4">จำนวนคงเหลือ</label>
                                 <input type="text" class="form-control" id="quantity" name="quantity" value="<?= isset($row['quantity']) ? $row['quantity'] : '' ?>">
 
                             <label for="unit" class="form-label mt-4">หน่วย</label>
                                 <input type="text" class="form-control" id="unit" name="material_unit" value="<?= isset($row['material_unit']) ? $row['material_unit'] : '' ?>">
 
-                                <input type="submit" name="1" class="btn btn-primary mt-4" value="Update">
-                                <a href="../../materials/show_mat.php" class="btn btn-secondary mt-4">Cancel</a>          
+                                <input type="submit" name="1" class="btn btn-primary mt-4" value="อัปเดต">
+                                <a href="../../materials/show_mat.php" class="btn btn-secondary mt-4">ยกเลิก</a>          
                         </form>
                     </div>
                 </div>
@@ -70,6 +69,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/project/public/js/main.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

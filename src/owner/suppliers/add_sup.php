@@ -12,49 +12,55 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/project/public/css/style.css">
 </head>
-    <body>
+
+<body>
     <div class="containerr">
         <?php include '../../../public/php/nav.php'; ?>
         
         <div class="top">
-        <?php include '../../../public/php/topbar.php'; ?>
+            <?php include '../../../public/php/topbar.php'; ?>
         
-        <div class="main">
-            <div class="container"> 
-        <div class="form">
+            <div class="main">
+                <div class="container"> 
+                    <div class="form">
 
-            <div class="header">เพิ่มวัตถุดิบ</div>
+                        <div class="header">เพิ่มวัตถุดิบ</div>
 
-            <form action="../controller/suppliers/insert_sup.php" method="post">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="supplier_name" name="supplier_name" required>
-                
-                <label for="tel" class="form-label">Tel</label>
-                <input type="tel" class="form-control" id="tel" name="tel" required>
-                
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address" required>
-                
-                <label for="type" class="form-label mt-4">ประเภทสินค้า</label>
-                <select class="form-select" aria-label="Default select example" id="type" name="supplier_type">
-                    <?php
-                    $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
-                    $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
-                    while($row=mysqli_fetch_array($hand)){
-                    ?>
-                    <option value="<?=$row['type_id']?>"><?=$row['type_name']?></option>
-                    <?php 
-                        } 
-                        mysqli_close($conn)
-                    ?>
-                </select>
-                
-                <label for="material" class="form-label">ชื่อสินค้า</label>
-                <input type="text" class="form-control" id="material_name" name="material_name" required>
-                
-                <input type="submit" name="1" class="btn btn-primary mt-4" value="Submit">
-                <a href="show_sup.php" class="btn btn-secondary mt-4">Cancel</a>          
-            </form>
+                        <div class="content">
+                            <form action="../controller/suppliers/insert_sup.php" method="post">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="supplier_name" name="supplier_name" required>
+                                
+                                <label for="tel" class="form-label">Tel</label>
+                                <input type="tel" class="form-control" id="tel" name="tel" required>
+                                
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" name="address" required>
+
+                                <label for="material" class="form-label">ชื่อสินค้า</label>
+                                <input type="text" class="form-control" id="material_name" name="material_name" required>
+                                
+                                <label for="type" class="form-label ">ประเภทสินค้า</label>
+                                <select class="form-select" aria-label="Default select example" id="type" name="supplier_type">
+                                    <?php
+                                        $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
+                                        $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
+                                        while($row=mysqli_fetch_array($hand)){
+                                    ?>
+                                    <option value="<?=$row['type_id']?>"><?=$row['type_name']?></option>
+                                    <?php 
+                                        } 
+                                        mysqli_close($conn)
+                                    ?>
+                                </select>
+                                
+                                <input type="submit" name="1" class="btn btn-primary mt-4" value="Submit">
+                                <a href="show_sup.php" class="btn btn-secondary mt-4">Cancel</a>          
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

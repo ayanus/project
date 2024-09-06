@@ -17,14 +17,15 @@
         <?php include '../../../public/php/nav.php'; ?>
         
         <div class="top">
-        <?php include '../../../public/php/topbar.php'; ?>
+            <?php include '../../../public/php/topbar.php'; ?>
         
-        <div class="main">
-            <div class="container">      
-                <div class="header">สินค้า</div>
-                    <a href="add_pro.php"><button type="button" class="btn btn-success">Add+</button></a>
+            <div class="main">
+                <div class="container">      
+                    <div class="header">สินค้า</div>
+                        <a href="add_pro.php"><button type="button" class="btn btn-success">Add+</button></a>
 
-                    <table class="table mt-4">
+                    <div class="content">
+                        <table class="table mt-4">
                             <thead class="table-dark">
                             <tr>
                                 <th>Name</th>
@@ -59,7 +60,9 @@
 
                         </table>
                     </div>
+                </div>
             </div>
+        </div>
     </div>
 
     <script src="/project/public/js/main.js"></script>

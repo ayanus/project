@@ -17,13 +17,14 @@
         <?php include '../../../public/php/nav.php'; ?>
         
         <div class="top">
-        <?php include '../../../public/php/topbar.php'; ?>
+            <?php include '../../../public/php/topbar.php'; ?>
         
-        <div class="main">
-            <div class="container">   
-            <div class="header">สั่งซื้อวัตถุดิบ</div>
+            <div class="main">
+                <div class="container">   
+                    <div class="header">สั่งซื้อวัตถุดิบ</div>
 
-                        <table class="table">
+                    <div class="content">
+                        <table class="table mt-4">
                             <thead class="table-dark">
                             <tr>
                                 <th>ชื่อ</th>
@@ -61,7 +62,9 @@
 
                         </table>
                     </div>
+                </div>
             </div>
+        </div>
     </div>
 
     <script src="/project/public/js/main.js"></script>
