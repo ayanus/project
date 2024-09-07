@@ -66,11 +66,3 @@
     </body>
 </html>
 
-<script language="Javascript">
-    function Del(mypage){
-        var agree=confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
-        if(agree){
-            window.location = mypage;
-        }
-    }
-</script>

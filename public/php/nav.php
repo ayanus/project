@@ -1,22 +1,22 @@
 <div class="navigation">
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="receipt-outline"></ion-icon>
-                        </span>
-                        <span class="title">การขาย</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="analytics-outline"></ion-icon>
-                        </span>
-                        <span class="title">ผึ้ง</span>
-                    </a>
-                </li>
+    <ul>
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="receipt-outline"></ion-icon>
+                </span>
+                <span class="title">การขาย</span>
+             </a>
+        </li>
+        
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="analytics-outline"></ion-icon>
+                </span>
+                <span class="title">ผึ้ง</span>
+            </a>
+        </li>
 
                 <li>
                     <a href="/project/src/owner/materials/show_mat.php">
@@ -73,5 +73,5 @@
                 </li>
 
             </ul>
-        </div>
+</div>
 

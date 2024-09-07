@@ -59,41 +59,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        html,
-        body {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+<style>
+    body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+    }
 
-        .form-signin {
-            width: 100%;
-            max-width: 330px;
-            padding: 15px;
-            margin: auto;
-        }
+    .wrapper {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        height: 100vh;
+    }
 
-        .form-signin .form-floating:focus-within {
-            z-index: 2;
-        }
-    </style>
+    .container {
+        flex: 1.25;
+        width: 70%;
+        height: 100vh;
+        background-color: #FBF8EF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .main {
+        flex: 1;
+        width: 50%;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-signin .form-control {
+        width: 100%; /* ให้ความกว้างเต็ม */
+        max-width: 400px; /* เพิ่มความกว้างตามต้องการ */
+    }
+
+</style>
 </head>
 
 <body>
-    <form class="form-signin" method="post">
-        <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
-        <div class="form-group">
-            <label for="username" class="sr-only">Username:</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+    <div class="wrapper">
+        <div class="container">
+            <img src="/project/public/picture/login.png" class="img">
         </div>
-        <div class="form-group">
-            <label for="password" class="sr-only">Password:</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <div class="main">
+            <form class="form-signin" method="post">
+                <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+                <div class="form-group">
+                    <label for="username" class="sr-only">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block " type="submit">Login</button>
+            </form>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-    </form>
+    </div>
     <!-- Include Bootstrap JS (Optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

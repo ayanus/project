@@ -13,7 +13,7 @@
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
-    <form action="/project/src/views/admin/login/insert_register.php" method="post">
+    <form action="/project/src/login/insert_register.php" method="post">
         <h1 class="h3 mb-3 fw-normal text-center">Sign up</h1>
 
         <!-- ถ้ามี error -->
@@ -62,7 +62,7 @@
 
         </div>
         <button class="btn btn-primary w-100 py-2 my-2" type="submit" name="register">Register</button>
-        <p class="mt-2 text-body-secondary text-center">Don't have an account yet? <a href="login.php">Sign in</a> now</p>
+        <p class="mt-2 text-body-secondary text-center">Don't have an account yet? <a href="/project/login.php">Sign in</a> now</p>
     </form>
 
     
