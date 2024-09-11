@@ -11,14 +11,14 @@ if (!isset($_SESSION['username'])) {
 <div class="topbar"> 
     <ul>
         <li>
-            <a href="/project/src/owner/owner_home.php">
+            <a href="/project/src/employee/employee_home.php">
                 <img width="120" src="/project/public/logo.png" alt="Big Bee Farm Logo">                    
             </a>
         </li>
     </ul>
     
     <div class="user">
-        <p>Welcome K.<?php echo $_SESSION['username']; ?></p>
+        <a href="/project/src/employee/employee/show_em.php">Welcome K.<?php echo $_SESSION['username']; ?></a>
     </div>
 
     <div class="logout">

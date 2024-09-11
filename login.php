@@ -25,6 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // เก็บข้อมูลผู้ใช้ใน session
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
+            $_SESSION['form'] = $row['form'];
+
+            if (!$_SESSION['has_filled_form']) {
+                header("Location: fill_form.php"); // ถ้ายังไม่ได้กรอกฟอร์ม นำไปที่หน้ากรอกฟอร์ม
+                exit();
+            }
 
             // ตรวจสอบ role และนำทางไปยังหน้า home ที่เหมาะสม
             switch ($row['role']) {
@@ -32,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: src/owner/owner_home.php");
                     break;
                 case 'employee':
-                    header("Location: src/employee/employee_home.php");
+                    header("Location: src/employee/employee/show_em.php");
                     break;
                 default:
                     header("Location: login.php");

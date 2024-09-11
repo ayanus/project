@@ -21,35 +21,35 @@
         
             <div class="main">
                 <div class="container">    
-                    <div class="header">วัตถุดิบ</div>
-                    <a href="add_mat.php"><button type="button" class="btn btn-success">เพิ่มวัตถุดิบ+</button></a>
-
+                    <div class="header">พนักงาน</div>
+                    <a href="add_em.php"><button type="button" class="btn btn-success">เพิ่มพนักงานใหม่ +</button></a>
                     <div class="content"> 
                         <table class="table mt-4">
                             <thead class="table-dark ">
                             <tr>
-                                <th>ชื่อ</th>
-                                <th>ประเภทสินค้า</th>
-                                <th>จำนวนคงเหลือ</th>
-                                <th>หน่วย</th>
+                                <th>รูป</th>
+                                <th>ชื่อ - สกุล</th>
+                                <th>ตำแหน่งงาน</th>
+                                <th>เงินเดือน</th>
+                                <th>สถานะ</th>
                                 <th> </th>
                             </tr>
                             </thead>
                             
                             <?php
-                                $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
+                                $sql = "SELECT * FROM employee, department WHERE employee.department_id = department.department_id ORDER BY employee_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
 
                             <tbody>
                             <tr>
-                                <td><?php echo $row['material_name']; ?></td>
-                                <td><?php echo $row['type_name']; ?></td>
-                                <td><?php echo $row['quantity']; ?></td>
-                                <td><?php echo $row['material_unit']; ?></td>
-                                <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">แก้ไข</a>
-                                <a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
+                                <td><?php echo $row['picture']; ?></td>
+                                <td><?php echo $row['employee_name']; ?></td>
+                                <td><?php echo $row['department_name']; ?></td>
+                                <td><?php echo $row['salary']; ?></td>
+                                <td><a href="../controller/employee/showall_em.php?employee_id=<?=$row['employee_id']?>" class="btn btn-warning">เพิ่มเติม</a>
+                                <a href="../controller/employee/delete_em.php?employee_id=<?=$row['employee_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบพนักงาน</a></td>
                             </tr>
                             </tbody>
                             
@@ -67,14 +67,3 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    </body>
-</html>
-
-<script language="Javascript">
-    function Del(mypage){
-        var agree=confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
-        if(agree){
-            window.location = mypage;
-        }
-    }
-</script>

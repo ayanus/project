@@ -6,3 +6,19 @@ CREATE TABLE Employee (
    picture VARCHAR(255) NOT NULL,
    username VARCHAR(255) NOT NULL,
    password VARCHAR(255) NOT NULL);
+
+   ALTER TABLE Employee ADD COLUMN address VARCHAR(255)NOT NULL,
+   ADD COLUMN sex VARCHAR(255)NOT NULL,
+   ADD COLUMN account_name VARCHAR(255)NOT NULL,
+   ADD COLUMN account_num VARCHAR(255)NOT NULL,
+   ADD COLUMN pic_bank VARCHAR(255)NOT NULL
+   ;
+
+   ALTER TABLE Employee ADD COLUMN department_id VARCHAR(255)NOT NULL;
+
+   ALTER TABLE Employee ADD COLUMN start_date date,
+   ADD COLUMN end_date date;
+
+
+
+

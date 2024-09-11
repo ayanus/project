@@ -19,7 +19,7 @@
         </li>
 
                 <li>
-                    <a href="/project/src/owner/materials/show_mat.php">
+                    <a href="/project/src/employee/materials/show_mat.php">
                         <span class="icon">
                             <ion-icon name="storefront-outline"></ion-icon>
                         </span>
@@ -28,7 +28,7 @@
                 </li>
 
                 <li>
-                    <a href="/project/src/owner/ordermat/show_odrmat.php">
+                    <a href="/project/src/employee/ordermat/show_odrmat.php">
                         <span class="icon">
                             <ion-icon name="storefront-outline"></ion-icon>
                         </span>
@@ -37,7 +37,7 @@
                 </li>
 
                 <li>
-                    <a href="/project/src/owner/products/show_pro.php">
+                    <a href="/project/src/employee/products/show_pro.php">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
@@ -55,20 +55,11 @@
                 </li>
 
                 <li>
-                    <a href="/project/src/owner/suppliers/show_sup.php">
+                    <a href="/project/src/employee/suppliers/show_sup.php">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
                         <span class="title">Supplier</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/project/src/owner/employee/show_em.php">
-                        <span class="icon">
-                        <ion-icon name="person-outline"></ion-icon>                        
-                    </span>
-                        <span class="title">พนักงาน</span>
                     </a>
                 </li>
 
