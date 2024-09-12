@@ -25,12 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // เก็บข้อมูลผู้ใช้ใน session
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
-            $_SESSION['form'] = $row['form'];
-
-            if (!$_SESSION['has_filled_form']) {
-                header("Location: fill_form.php"); // ถ้ายังไม่ได้กรอกฟอร์ม นำไปที่หน้ากรอกฟอร์ม
-                exit();
-            }
 
             // ตรวจสอบ role และนำทางไปยังหน้า home ที่เหมาะสม
             switch ($row['role']) {
@@ -38,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: src/owner/owner_home.php");
                     break;
                 case 'employee':
-                    header("Location: src/employee/employee/show_em.php");
+                    header("Location: src/employee/employee_home.php");
                     break;
                 default:
                     header("Location: login.php");
@@ -120,14 +114,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form class="form-signin" method="post">
                 <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
                 <div class="form-group">
-                    <label for="username" class="sr-only">Username:</label>
+                    <label for="username" class="sr-only"></label>
                     <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="sr-only">Password:</label>
+                    <label for="password" class="sr-only"></label>
                     <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block " type="submit">Login</button>
+                <p class="mt-2 text-body-secondary text-center">Don't have an account yet? <a href="src/employee/register/register.php">Register</a> now</p>
+
             </form>
         </div>
     </div>
@@ -135,6 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
 
+</body>
 </html>
