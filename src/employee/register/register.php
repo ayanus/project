@@ -11,81 +11,74 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 <style>
     body {
         margin: 0;
         display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: #F5F5F5;
-        min-width: none;
+        height: 100vh;
     }
 
     .wrapper {
         display: flex;
-        flex: 1;
-        flex-wrap: wrap;
-        height: 110vh;
-    }
-
-    .container {
-        flex: 1.25;
-        width: 70%;
-        height: 100vh;
-        background-color: #FBF8EF;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .main {
-        flex: 1;
-        width: 30%;
-        padding: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 17% 17% 17%;
-    }
-
-    .user {
-        width : 20.5%;
-    }
-    .card {
-        /* width: 20.5%; */
-        display: flex;
         flex-direction: column;
-        align-items: left;
+        width: 50%;
+        height: auto;
+        border-radius: 15px;
+        padding: 20px;
+        position: relative;
     }
 
     .logo {
+        margin-top: 30%;
         display: flex;
         justify-content: center;
     }
 
+    .logo img {
+        width: 150px;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
     .profile {
-        position: absolute;
-        left: 500px;
-        width: calc(80% - 500px);
+        width: 100%;
+        padding: 20px;
         background-color: white;
-        margin-top: 180px;
         border-radius: 10px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
-    .profile .head {
-        border-radius: 10px 10px 0 0;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        width: 102.25%;
-        margin-left: -8px;
-    }
-
-    .profile .head p {
+    .profile h5 {
         font-size: 20px;
-        font-weight: 500;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
         padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .sent {
+        width: 100%;
+        padding: 10px;
     }
 
 </style>
@@ -93,7 +86,7 @@
 <body>
     <div class="wrapper">
         <div class="main ">
-            <form class="row g-3" action="/project/src/login/insert_register.php" method="post">
+            <form class="row g-3" action="/project/src/employee/register/insert_register.php" method="post">
                 <a href="#" class="logo">
                     <img width="20%" src="/project/public/logo.png" alt="Big Bee Farm Logo">
                 </a>
@@ -118,40 +111,16 @@
                     </div>
                 <?php } ?>
 
-                <div class="user">
-                    <div class="card">
-                        <header class="card-header">
-                            <p class="header-title">รูปถ่าย</p>
-                        </header>
-                        <div class="card-image">
-                            <div id="profile_image_preview" class="image is-fullwidth" style="width: 100%; height: 200px; background-image: url('https://www.w3schools.com/howto/img_avatar.png'); background-size: cover; background-position: center;"></div>
-                        </div>
-                    </div>
-                    <div class="file is-boxed">
-                        <label class="file-label">
-                            <input class="file-input" type="file" name="resume" />
-                            <span class="file-cta">
-                            <span class="file-icon">
-                                <ion-icon name="cloud-upload-outline"></ion-icon>
-                            </span>
-                            <span class="file-label"> Choose a file… </span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
                 <div class="profile">
-                    <div class="head">
-                        <p>ข้อมูลส่วนตัว</p>
-                    </div>
+                    <h5>ข้อมูลส่วนตัว</h5>
                     <div class="row mb-3 mt-3 ml-5">
                         <div class="col-md-6">
                             <label for="name" class="form-label">ชื่อ - สกุล</label>
                             <input type="text" id="employee_name" name="employee_name" class="form-control" required autofocus>
                         </div>
-                        <div class="col-5">
+                        <div class="col-6">
                             <label for="gender" class="form-label">เพศ</label>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" id="sex" name="sex">
                                 <option selected disabled>-------</option>
                                 <option value="1" >ชาย</option>
                                 <option value="2">หญิง</option>
@@ -160,8 +129,8 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3 mt-2 ml-5">
-                        <div class="col-md-5">
+                    <div class="row mb-3 mt-2 ml-6">
+                        <div class="col-md-6">
                             <label for="tel" class="form-label">เบอร์โทร</label>
                             <input type="tel" id="tel" name="tel" class="form-control" pattern="[0-9]{10}"required>
                         </div>
@@ -172,12 +141,12 @@
                     </div>
                     
                     <div class="row mb-3 mt-2 ml-5">
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <label for="address" class="form-label">ที่อยู่</label>
                             <textarea id="address" name="address" class="form-control" rows="2" required></textarea>
                         </div>
-                        <div class="col-md-4">
-                            <label for="gender" class="form-label">แผนกงาน</label>
+                        <div class="col-md-6">
+                            <label for="department" class="form-label">แผนกงาน</label>
                                 <select class="form-select" aria-label="Default select example" id="department_id" name="department_id">
                                 <option selected disabled>-------</option>
                                 <?php
@@ -193,26 +162,49 @@
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row mb-3 mt-2 ml-5">
-                        <div class="col-md-5">
-                            <label for="account_name" class="form-label">บัญชีธนาคาร</label>
+                <div class="profile">
+                    <h5>ข้อมูลบัญชีธนาคาร</h5>
+                    <div class="row mb-3 mt-3 ml-5">
+                        <div class="col-md-4">
+                            <label for="bank" class="form-label">ธนาคาร</label>
+                            <input type="text" id="bank" name="bank" class="form-control"required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="account_name" class="form-label">ชื่อบัญชี</label>
                             <input type="text" id="account_name" name="account_name" class="form-control"required>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="account_num" class="form-label">เลขที่บัญชี</label>
                             <input type="text" id="account_num" name="account_num" class="form-control" required>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row mb-3 mt-2 ml-5">
-                        <button class="btn btn-md btn-primary btn-block w-75" type="submit" name="register">Register</button>
+                <div class="profile">
+                    <h5>ข้อมูลการสมัครใช้งานระบบ</h5>
+                    <div class="row mb-3 mt-3 ml-5">
+                        <div class="col-md-6">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="bank" name="username" class="form-control"required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" id="account_name" name="password" class="form-control"required>
+                        </div>
                     </div>
+                </div>
 
+                <div class="sent">
+                    <div class="row mb-3 mt-2 ml-5">
+                        <button class="btn btn-md btn-primary btn-block w-100 center" type="submit" name="register">Register</button>
+                    </div>
                     <div class="row mb-3 mt-2 ml-5">
                         <p class="mt-2 text-body-secondary text-center">Already have an account yet? <a href="/project/login.php">Sign in</a> now</p>
                     </div>
                 </div>
+                
             </form>
         </div>
     </div>

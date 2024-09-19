@@ -3,12 +3,12 @@
     include 'C:/xampp/htdocs/project/config/database.php';
     $minLength = 8;
 
-    if(isset($_POST['employee_name'])) {
+    if(isset($_POST['employee_id']) && isset($_POST['employee_name']) && isset($_POST['username']) && isset($_POST['password'])) {
+        echo "test";
+        $employee_id = $_POST['employee_id'];
         $employee_name = $_POST['employee_name'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $date = $_POST['start_date'];
-        $role = "employee";
 
         //เช็คไม่ให้มีค่าว่าง
         if (empty($employee_name)) {
@@ -41,8 +41,8 @@
                 exit();
             } else {
                 try {
-                    $stmt = $conn->prepare("INSERT INTO employee (employee_name, username, password, start_date, role) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param("sssss", $employee_name, $username, $password, $date, $role);
+                    $stmt = $conn->prepare("INSERT INTO employee (username, password ) VALUES (?, ?)");
+                    $stmt->bind_param("ss", $username, $password);
                     $stmt->execute();
                     $stmt->close();
                     $_SESSION['success'] = "Register successfully";

@@ -19,6 +19,12 @@ CREATE TABLE Employee (
    ALTER TABLE Employee ADD COLUMN start_date date,
    ADD COLUMN end_date date;
 
+   ALTER TABLE employee CHANGE pic_bank bank VARCHAR(15);
+
+   ALTER TABLE Employee ADD COLUMN username VARCHAR(255)NOT NULL;
+
+
+
 
 
 

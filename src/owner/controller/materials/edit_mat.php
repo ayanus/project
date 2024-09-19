@@ -22,6 +22,7 @@
         
         <div class="top">
         <?php include '../../../../public/php/topbar.php'; ?>
+        </div>
         
         <div class="main">
             <div class="container"> 

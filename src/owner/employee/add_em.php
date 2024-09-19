@@ -1,5 +1,24 @@
 <?php
-    include 'C:/xampp/htdocs/project/config/database.php';
+include 'C:/xampp/htdocs/project/config/database.php';
+
+if (!isset($_GET['employee_id'])) {
+    die("Error: employee_id is not set.");
+    exit();
+}
+
+$id = intval($_GET['employee_id']); // แปลงเป็นจำนวนเต็ม
+$sql = "SELECT * FROM employee WHERE employee_id = $id";
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Error: " . mysqli_error($conn));
+}
+
+$row = mysqli_fetch_array($result);
+
+if (!$row) {
+    die("Error: No data found for employee_id $id.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,34 +37,33 @@
 
         <div class="top">
             <?php include '../../../public/php/topbar.php'; ?>
+        </div>
         
-            <div class="main">
-                <div class="container"> 
-                    <div class="form">
-                
-                        <div class="header">
-                            <a href="show_em.php">พนักงาน </a>
-                            <a1>/</a1>
-                            <a2>เพิ่มข้อมูลพนักงานใหม่</a2>
-                        </div>
+        <div class="main">
+            <div class="container"> 
+                <div class="form">
+                    <div class="header">
+                        <a href="show_em.php">พนักงาน</a>
+                        <a1>/</a1>
+                        <a2>เพิ่มข้อมูลพนักงานใหม่</a2>
+                    </div>
 
-                        <div class="content">
-                            <form action="../controller/employee/insert_em.php" method="post">
-                                <label for="name" class="form-label">ชื่อ - นามสกุล</label>
-                                <input type="text" class="form-control" id="name" name="employee_name" required>
-                                
-                                <label for="username" class="form-label mt-4">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                    <div class="content">
+                        <form action="../controller/employee/insert_em.php" method="post">
+                            <label for="employee_id" class="form-label mt-4">ID</label>
+                            <input type="text" class="form-control" id="id" name="employee_id" value="<?= htmlspecialchars($row['employee_id'], ENT_QUOTES, 'UTF-8') ?>"readonly>
 
-                                <label for="password" class="form-label mt-4">Password</label>
-                                <input type="Password" class="form-control" id="password" name="password" required>
+                            <label for="name" class="form-label mt-4">ชื่อ - นามสกุล</label>
+                            <input type="text" class="form-control" id="name" name="employee_name" value="<?= htmlspecialchars($row['employee_name'], ENT_QUOTES, 'UTF-8') ?>"readonly>
+                            
+                            <label for="username" class="form-label mt-4">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
 
-                                <label for="date" class="form-label mt-4">วันที่เริ่มงาน</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" required>
+                            <label for="password" class="form-label mt-4">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
 
-                                <input type="submit" name="1" class="btn btn-success mt-4 pull-right" value="บันทึกข้อมูล">
-                            </form>
-                        </div>
+                            <input type="submit" class="btn btn-success mt-4" value="บันทึกข้อมูล">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -60,12 +78,12 @@
 
     if (isset($_SESSION['success'])) {
         echo "<script>alert('" . $_SESSION['success'] . "');</script>";
-        unset($_SESSION['success']); // ลบข้อความออกจาก SESSION หลังแสดง alert แล้ว
+        unset($_SESSION['success']);
     }
 
     if (isset($_SESSION['error'])) {
         echo "<script>alert('" . $_SESSION['error'] . "');</script>";
-        unset($_SESSION['error']); // ลบข้อความออกจาก SESSION หลังแสดง alert แล้ว
+        unset($_SESSION['error']);
     }
     ?>
 
