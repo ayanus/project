@@ -29,7 +29,6 @@
                             <tr>
                                 <th>รูป</th>
                                 <th>ชื่อ - สกุล</th>
-                                <th>Username</th>
                                 <th>ตำแหน่งงาน</th>
                                 <th>เงินเดือน</th>
                                 <th>สถานะ</th>
@@ -39,7 +38,7 @@
                             
                             <?php
                                 // เพิ่มการตรวจสอบ username ในเงื่อนไข SQL
-                                $sql = "SELECT * FROM employee, department  WHERE employee.department_id = department.department_id ORDER BY employee_id";
+                                $sql = "SELECT e.employee_id, e.picture, e.employee_name, d.department_name, d.salary, s.status FROM employee e LEFT JOIN salary s ON e.employee_id = s.employee_id LEFT JOIN department d ON e.department_id = d.department_id WHERE e.role = 'employee' ORDER BY e.employee_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
@@ -48,17 +47,16 @@
                             <tr>
                                 <td><?php echo $row['picture']; ?></td>
                                 <td><?php echo $row['employee_name']; ?></td>
-                                <td><?php echo $row['username']; ?></td>
                                 <td><?php echo $row['department_name']; ?></td>
                                 <td><?php echo $row['salary']; ?></td>
                                 <td>
-                                    <!-- <?php if($row['status'] == 'paid'): ?>
-                                        <span class="badge bg-success">จ่ายแล้ว</span>
+                                    <?php if($row['status'] == 'paid'): ?>
+                                        <a href="" class="badge bg-success ">จ่ายแล้ว</a>
                                     <?php else: ?>
-                                        <span class="badge bg-danger">ยังไม่จ่าย</span>
-                                    <?php endif; ?> -->
+                                        <a href="" class="badge bg-danger">ยังไม่จ่าย</a>
+                                    <?php endif; ?>
                                 </td>
-                                <td><a href="../controller/employee/showall_em.php?employee_id=<?=$row['employee_id']?>" class="btn btn-warning">เพิ่มเติม</a>
+                                <td><a href="showmore_em.php?employee_id=<?=$row['employee_id']?>" class="btn btn-warning">เพิ่มเติม</a>
                                 <a href="../controller/employee/delete_em.php?employee_id=<?=$row['employee_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบพนักงาน</a></td>
                             </tr>
                             </tbody>
