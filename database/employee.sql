@@ -23,6 +23,9 @@ CREATE TABLE Employee (
 
    ALTER TABLE Employee ADD COLUMN username VARCHAR(255)NOT NULL;
 
+   ALTER TABLE employee MODIFY picture VARCHAR(255) NULL;
+
+
 
 
 

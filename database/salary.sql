@@ -5,3 +5,9 @@ CREATE TABLE Salary (
    money VARCHAR(255) NOT NULL,
    status VARCHAR(50) NOT NULL,
    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE);
+
+ALTER TABLE salary DROP COLUMN slip;
+
+ALTER TABLE salary ADD COLUMN slip VARCHAR(255) NOT NULL,
+ADD COLUMN status ENUM('paid', 'unpaid') NOT NULL;
+

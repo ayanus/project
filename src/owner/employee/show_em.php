@@ -30,8 +30,7 @@
                                 <th>รูป</th>
                                 <th>ชื่อ - สกุล</th>
                                 <th>ตำแหน่งงาน</th>
-                                <th>เงินเดือน</th>
-                                <th>สถานะ</th>
+                                <th>สถานะเงินเดือน</th>
                                 <th>action</th>
                             </tr>
                             </thead>
@@ -45,10 +44,9 @@
 
                             <tbody>
                             <tr>
-                                <td><?php echo $row['picture']; ?></td>
+                                <td><img src="/project/uploads/<?php echo htmlspecialchars($row['picture']); ?>" alt="Employee Picture" style="width:100px;height:100px;"></td>
                                 <td><?php echo $row['employee_name']; ?></td>
                                 <td><?php echo $row['department_name']; ?></td>
-                                <td><?php echo $row['salary']; ?></td>
                                 <td>
                                     <?php if($row['status'] == 'paid'): ?>
                                         <a href="" class="badge bg-success ">จ่ายแล้ว</a>

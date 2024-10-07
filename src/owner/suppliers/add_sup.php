@@ -39,7 +39,7 @@
                                 <input type="text" class="form-control" id="address" name="address" required>
 
                                 <label for="material" class="form-label">ชื่อสินค้า</label>
-                                <input type="text" class="form-control" id="material_name" name="material_name" required>
+                                <textarea class="form-control" id="material_name" name="material_name" required></textarea>
                                 
                                 <label for="type" class="form-label ">ประเภทสินค้า</label>
                                 <select class="form-select" aria-label="Default select example" id="type" name="supplier_type">

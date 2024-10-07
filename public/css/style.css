@@ -18,7 +18,7 @@
 }
 
 html, body {
-    height: 100%;
+    height: auto;
     overflow-y: auto;
 }
 
@@ -127,7 +127,7 @@ html, body {
     width: 95%;
     height: auto;
     overflow-y: auto;
-    position: absolute,
+    position: absolute;
 }
 
 .header {
@@ -163,17 +163,14 @@ html, body {
     width: 100%;
     overflow-y: auto;
     display: flex;
-    padding: 0 10px;
     background-color: #FFFAFA;
-    margin-top: 20px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     border: 1px solid #ddd;
-    padding-bottom: 25px;
+    padding-bottom: 20px;
     padding-left: 40px;
     padding-right: 30px;
     padding-top: 20px;
-    /* min-height: 100vh; */
 }
 
 

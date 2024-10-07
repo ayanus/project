@@ -21,45 +21,156 @@
         </div>
         
             <div class="main">
-                <div class="container">    
-                    <div class="header">วัตถุดิบ</div>
-                    <a href="add_mat.php"><button type="button" class="btn btn-success">เพิ่มวัตถุดิบ+</button></a>
+                <div class="container">
+                    <!-- <h4>เพิ่มข้อมูลวัตถุดิบและอุปกรณ์</h4>     -->
+                    <div class="header">เพิ่มข้อมูลวัตถุดิบและอุปกรณ์</div>
+                    <!-- <a href="add_mat.php"><button type="button" class="btn btn-success mb-3">เพิ่มอุปกรณ์และวัตถุดิบ+</button></a> -->
+                    <div class="row g-4">
+                            <div class="col-md-8 col-sm-12">
+                                <form action="../controller/materials/insert_mat.php" method="post" enctype="multipart/form-data">
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-sm-4">
+                                            <label class="form-label">ชื่อวัตถุดิบและอุปกรณ์</label>
+                                            <input type="text" class="form-control" name="material_name" required>
+                                        </div>
 
-                    <div class="content"> 
-                        <table class="table mt-4">
-                            <thead class="table-dark ">
-                            <tr>
-                                <th>ชื่อ</th>
-                                <th>ประเภทสินค้า</th>
-                                <th>จำนวนคงเหลือ</th>
-                                <th>หน่วย</th>
-                                <th> </th>
-                            </tr>
-                            </thead>
-                            
-                            <?php
-                                $sql = "SELECT * FROM materials, Type_Mat WHERE materials.material_type = Type_Mat.type_id ORDER BY material_id";
-                                $result = mysqli_query($conn, $sql);
-                                while($row = mysqli_fetch_array($result)){ 
-                            ?>
+                                        <div class="col-sm-3">
+                                            <label class="form-label">ประเภท</label>
+                                            <select class="form-select" aria-label="Default select example" id="type" name="material_type">
+                                                <?php
+                                                $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
+                                                $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
+                                                while($row=mysqli_fetch_array($hand)){
+                                                ?>
+                                                <option value="<?=$row['type_id']?>"><?=$row['type_name']?></option>
+                                                <?php 
+                                                    } 
+                                                ?>
+                                            </select>                                    
+                                        </div>
 
-                            <tbody>
-                            <tr>
-                                <td><?php echo $row['material_name']; ?></td>
-                                <td><?php echo $row['type_name']; ?></td>
-                                <td><?php echo $row['quantity']; ?></td>
-                                <td><?php echo $row['material_unit']; ?></td>
-                                <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">แก้ไข</a>
-                                <a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
-                            </tr>
-                            </tbody>
-                            
-                            <?php 
-                                } mysqli_close($conn);
-                            ?>
+                                        <div class="col-sm-2">
+                                            <label class="form-label">จำนวน</label>
+                                            <input type="text" class="form-control" name="quantity" required>
+                                        </div>
 
-                        </table>
+                                        <div class="col-sm-3">
+                                            <label class="form-label">หน่วย</label>
+                                            <select id="base_unit" name="base_unit" class="form-select" required>
+                                                <option value="แพ็ค">แพ็ค</option>
+                                                <option value="กิโลกรัม">กิโลกรัม</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label for="formFile" class="form-label">รูปภาพ</label>
+                                            <input type="file" class="form-control" name="material_img" accept="image/png, image/jpg,image/jpeg">
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label class="form-label">รายละเอียด</label>
+                                            <textarea class="form-control" name="material_detail" row="3" required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary" type="submit">บันทึก</button>
+                                    <hr class="my-4">
+                                </form>
+                            </div>
+                        </div>
+                    
+                    <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="show_mat.php">วัตถุดิบและอุปกรณ์</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="true" href="../ordermat/show_odrmat.php">สั่งซื้อ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Disabled</a>
+                        </li>
+                        </ul>
                     </div>
+                    <div class="card-body">
+                                <table class="table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>รูปภาพ</th>
+                                            <th>ชื่อ</th>
+                                            <th class="dropdown">
+                                                    <button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">                                                   
+                                                        ประเภท
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="show_mat.php">ทั้งหมด</a></li>
+                                                        <?php
+                                                            $sql = "SELECT * FROM Type_Mat ORDER BY type_name";
+                                                            $hand = mysqli_query($conn, $sql);
+                                                            while ($row = mysqli_fetch_array($hand)) {
+                                                        ?>
+                                                        <li><a class="dropdown-item" href="?type_id=<?php echo $row['type_id']; ?>">
+                                                                <?php echo $row['type_name']; ?>
+                                                            </a>
+                                                        </li>
+                                                        
+                                                        <?php } ?>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </th>
+                                            <th>จำนวนคงเหลือ</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+ 
+                                    <?php
+                                    // ตรวจสอบว่าได้รับ type_id จาก URL หรือไม่
+                                    $type_id = isset($_GET['type_id']) ? $_GET['type_id'] : 0;
+
+                                    // ปรับ Query ขึ้นอยู่กับการเลือกประเภท
+                                    if ($type_id == 0) {
+                                        // ถ้าไม่มีการเลือกประเภท ให้แสดงสินค้าทั้งหมด
+                                        $sql = "SELECT * FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id ORDER BY material_id";
+                                    } else {
+                                        // ถ้าเลือกประเภท ให้แสดงเฉพาะสินค้านั้น
+                                        $sql = "SELECT * FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id WHERE materials.material_type = $type_id ORDER BY material_id";
+                                    }
+
+                                    $result = mysqli_query($conn, $sql);
+
+                                    if (!$result) {
+                                        die("Error: " . mysqli_error($conn));
+                                    }
+
+                                    // แสดงผลข้อมูล
+                                    while ($row = mysqli_fetch_array($result)) {
+                                    ?>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="/project/uploads/<?php echo htmlspecialchars($row['material_img']); ?>" alt="Material Picture" style="width:100px;height:100px;"></td>
+                                            <td><?php echo $row['material_name']; ?>
+                                                <div>
+                                                    <small class="text-muted"><?php echo $row['material_detail']; ?></small>
+                                                </div>
+                                            </td>
+                                            <td><?php echo $row['type_name']; ?></td>
+                                            <td><?php echo $row['quantity']; ?> <?php echo $row['base_unit']; ?>
+                                                <div>
+                                                    <small class="text-muted"><?php echo $row['stock_quantity']; ?> <?php echo $row['unit_type']; ?></small>
+                                                </div>
+                                            </td>
+
+                                            <td><a href="../controller/materials/edit_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-warning">แก้ไข</a>
+                                            <a href="../controller/materials/delete_mat.php?material_id=<?=$row['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
+                                        </tr>
+                                    </tbody>
+                                    <?php
+                                        }
+                                    ?>
+                                </table>
                 </div>
             </div>
         </div>

@@ -1,10 +1,19 @@
 <?php
+    // ob_start();
+    // include 'C:/xampp/htdocs/project/config/database.php';
+    // $id = $_GET['employee_id'];
+    // $sql="SELECT * FROM employee WHERE employee_id = $id";
+    // $result = mysqli_query($conn, $sql);
+    // $row = mysqli_fetch_array($result);
+
     ob_start();
     include 'C:/xampp/htdocs/project/config/database.php';
-    $id = $_GET['employee_id'];
-    $sql="SELECT * FROM employee WHERE employee_id = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result);
+    // เตรียม Statement เพื่อป้องกัน SQL Injection
+    $stmt = $conn->prepare("SELECT * FROM employee WHERE employee_id = ?");
+    $stmt->bind_param("i", $_GET['employee_id']); // กำหนดว่าค่าที่จะส่งเข้าเป็นประเภท integer (i)
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -25,17 +34,52 @@
     .data {
         width: 60%;
     }
-    .pro {
-        width: 40%;
-        /* background-color: red; */
-        margin-left: auto; /* ทำให้ชิดขวา */
+
+    .text-center {
+        border-radius: 10px;
+        width: 200px;
+        border: 2px solid #000;
+        margin-right: 150px;
+        margin-top: 15px;
+        height: 200px;
+        overflow: hidden;
+    }
+    .picture p {
+        margin-top: 20px;
     }
 
-    .pro img {
-        width: 50%;
-        height: 50%;
-        margin-top: 30px;
-        border: 2px solid #000;
+    .picture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        width: 500px;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
     }
     
 
@@ -98,7 +142,7 @@
                                 <h5 class="pb-3 pt-4 fw-semibold">ข้อมูลธนาคาร</h5>
                                 <div class="row mb-3 mt-2 ml-6">
                                     <div class="col-auto">
-                                        <label class="col-form-label ">ชื่อบัญชี</label>
+                                        <label class="col-form-label">ชื่อบัญชี</label>
                                     </div>
                                     <div class="col-auto">
                                         <input type="text" name="account_name" class="form-control" value="<?= isset($row['account_name']) ? $row['account_name'] : '' ?>" readonly>
@@ -121,47 +165,46 @@
                                     <div class="col-auto">
                                         <input type="text" name="account_num" class="form-control" value="<?= isset($row['account_num']) ? $row['account_num'] : '' ?>" readonly>
                                     </div>
+
+                                    <button class="btn btn-md btn-success btn-block w-25 center" type="button" name="status" id="payrollBtn">จ่ายเงินเดือนพนักงาน</button>
                                 </div>
+
+
+                                <div id="popup" class="popup">
+                                    <div class="popup-content">
+                                        <span id="closePopup" class="close">&times;</span>
+                                        <h2>อัปโหลดสลิปการโอน</h2>
+                                        <form action="../controller/employee/upload_slip.php" method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="employee_id" value="<?= isset($row['employee_id']) ? $row['employee_id'] : '' ?>">
+                                            <input class="form-control" type="file" id="formFile" name="slip" required><br>
+                                            <button class="btn btn-md btn-success btn-block" type="submit">อัปโหลด</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    document.getElementById('payrollBtn').addEventListener('click', function() {
+                                    document.getElementById('popup').style.display = 'flex';
+                                });
+
+                                document.getElementById('closePopup').addEventListener('click', function() {
+                                    document.getElementById('popup').style.display = 'none';
+                                });
+                                </script>
+                                </form>
                             </div>
 
-                            <div class="pro">
+                            <div class="picture">
                                 <div class="text-center">
-                                    <form id="uploadForm" enctype="multipart/form-data" method="post">
-                                        <label for="picture">
-                                            <img id="profileImagePreview" src="/project/public/picture/addpic.png" class="rounded" alt="." style="cursor: pointer;">
-                                        </label>
-                                        <input type="file" id="picture" name="picture" accept="image/*" style="display: none;" onchange="previewImage(event)">
-                                        <button type="submit">อัปโหลด</button>
-                                    </form>
-                                    <img id="profileImagePreview" src="" alt="Profile Image Preview" style="display:none;"/>
-                                    <?php
-                                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['picture'])) {
-                                        // Same code to handle file upload and database update
-                                        $target_dir = "C:/xampp/htdocs/project/public/picture/";
-                                        $target_file = $target_dir . basename($_FILES["picture"]["name"]);
-                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                                        $check = getimagesize($_FILES["picture"]["tmp_name"]);
-                                        if ($check !== false) {
-                                            if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
-                                                $stmt = $conn->prepare("UPDATE employee SET picture = ? WHERE employee_id = ?");
-                                                $stmt->bind_param("si", $target_file, $id);
-                                                if ($stmt->execute()) {
-                                                    echo "อัปโหลดรูปภาพสำเร็จ";
-                                                } else {
-                                                    echo "เกิดข้อผิดพลาด: " . $conn->error;
-                                                }
-                                            } else {
-                                                echo "เกิดข้อผิดพลาดในการอัปโหลดไฟล์";
-                                            }
-                                        } else {
-                                            echo "ไฟล์นี้ไม่ใช่รูปภาพ";
-                                        }
-                                    }
-                                    ?>
-
+                                    <label>
+                                        <img src="/uploads/<?= isset($row['picture']) ? $row['picture'] : '' ?>" alt="profile">
+                                    </label>
                                 </div>
-                            </div>                    
-                            </div>
+                                <p>รหัสพนักงาน : <?= isset($row['employee_id']) ? $row['employee_id'] : '' ?></p>
+                                <p>รหัสแผนก : <a href="#"><?= isset($row['department_id']) ? $row['department_id'] : '' ?></a></p>
+                                <p>เริ่มงานวันที่ : <?= isset($row['start_date']) ? $row['start_date'] : '' ?></p>
+                                <p>จบงานวันที่ : <?= isset($row['end_date']) ? $row['end_date'] : '' ?></p>
+                            </div> 
                         </div>    
                 </div>
             </div>
@@ -169,17 +212,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-    <script language="Javascript">
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('profileImagePreview');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    </script>
 
     <?
     ob_end_flush();
