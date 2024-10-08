@@ -5,7 +5,7 @@
 // รับค่าจากฟอร์ม
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $material_name = $_POST["material_name"];
-    $material_type = $_POST['material_type'];
+    $type_id = $_POST['type_id'];
     $quantity = $_POST["quantity"];
     $base_unit = $_POST["base_unit"];
     $material_img = $_FILES['material_img']['name'];
@@ -46,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // สร้าง SQL เพื่อเพิ่มข้อมูลสินค้า
-    $sql = "INSERT INTO materials (material_name, material_type, base_unit, material_img, material_detail, quantity, conversion_to_base_unit, unit_type, stock_quantity)
-            VALUES ('$material_name', '$material_type', '$base_unit', '$material_img', '$material_detail', $quantity, $conversion_to_base_unit, '$unit_type', $stock_quantity)";
+    $sql = "INSERT INTO materials (material_name, type_id , base_unit, material_img, material_detail, quantity, conversion_to_base_unit, unit_type, stock_quantity)
+            VALUES ('$material_name', '$type_id', '$base_unit', '$material_img', '$material_detail', $quantity, $conversion_to_base_unit, '$unit_type', $stock_quantity)";
 
 
     if ($conn->query($sql) === TRUE) {

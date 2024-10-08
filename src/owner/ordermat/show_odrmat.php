@@ -85,10 +85,10 @@
                                     // ปรับ Query ขึ้นอยู่กับการเลือกประเภท
                                     if ($type_id == 0) {
                                         // ถ้าไม่มีการเลือกประเภท ให้แสดงสินค้าทั้งหมด
-                                        $query =  mysqli_query($conn, "SELECT * FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id ORDER BY type_id");
+                                        $query =  mysqli_query($conn, "SELECT * FROM materials INNER JOIN Type_Mat ON materials.type_id = Type_Mat.type_id ORDER BY type_id");
                                     } else {
                                         // ถ้าเลือกประเภท ให้แสดงเฉพาะสินค้านั้น
-                                        $query =  mysqli_query($conn, "SELECT * FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id WHERE materials.material_type = $type_id ORDER BY material_id");
+                                        $query =  mysqli_query($conn, "SELECT * FROM materials INNER JOIN Type_Mat ON materials.type_id = Type_Mat.type_id WHERE materials.type_id = $type_id ORDER BY material_id");
                                     }
                                     $rows = mysqli_num_rows($query);
                                 ?>

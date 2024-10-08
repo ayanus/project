@@ -23,13 +23,12 @@
 
             <div class="main">
                 <div class="container">    
-                    <div class="header">Suppliers</div>
-                        <a href="add_sup.php"><button type="button" class="btn btn-success">Add+</button></a>
-                        
-                    <div class="content">
-                        <table class="table mt-4">
+                    <div class="header">ผู้จัดจำหน่าย</div>
+                        <a href="add_sup.php"><button type="button" class="btn btn-success mb-3">Add+</button></a>
+                        <table class="table">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>รูป</th>
                                     <th>ชื่อ</th>
                                     <th>เบอร์โทร</th>
                                     <th>ที่อยู่</th>
@@ -48,6 +47,7 @@
 
                             <tbody>
                                 <tr>
+                                    <td><img src="/project/uploads/<?php echo htmlspecialchars($row['supplier_img']); ?>" alt="supplier Picture" style="width:100px;height:100px;"></td>
                                     <td><?php echo $row['supplier_name']; ?></td>
                                     <td><?php echo $row['tel']; ?></td>
                                     <td><?php echo $row['address']; ?></td>

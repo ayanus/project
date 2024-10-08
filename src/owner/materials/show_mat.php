@@ -36,7 +36,7 @@
 
                                         <div class="col-sm-3">
                                             <label class="form-label">ประเภท</label>
-                                            <select class="form-select" aria-label="Default select example" id="type" name="material_type">
+                                            <select class="form-select" aria-label="Default select example" id="type" name="type_id">
                                                 <?php
                                                 $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
                                                 $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
@@ -132,10 +132,10 @@
                                     // ปรับ Query ขึ้นอยู่กับการเลือกประเภท
                                     if ($type_id == 0) {
                                         // ถ้าไม่มีการเลือกประเภท ให้แสดงสินค้าทั้งหมด
-                                        $sql = "SELECT * FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id ORDER BY material_id";
+                                        $sql = "SELECT * FROM materials INNER JOIN Type_Mat ON materials.type_id = Type_Mat.type_id ORDER BY material_id";
                                     } else {
                                         // ถ้าเลือกประเภท ให้แสดงเฉพาะสินค้านั้น
-                                        $sql = "SELECT * FROM materials INNER JOIN Type_Mat ON materials.material_type = Type_Mat.type_id WHERE materials.material_type = $type_id ORDER BY material_id";
+                                        $sql = "SELECT * FROM materials INNER JOIN Type_Mat ON materials.type_id = Type_Mat.type_id WHERE materials.type_id = $type_id ORDER BY material_id";
                                     }
 
                                     $result = mysqli_query($conn, $sql);
