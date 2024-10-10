@@ -40,7 +40,7 @@
                             </thead>
 
                             <?php
-                                $sql = "SELECT * FROM supplier, Type_Mat WHERE supplier.supplier_type = Type_Mat.type_id ORDER BY supplier_id";
+                                $sql = "SELECT * FROM supplier ORDER BY supplier_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
                             ?>
@@ -51,8 +51,6 @@
                                     <td><?php echo $row['supplier_name']; ?></td>
                                     <td><?php echo $row['tel']; ?></td>
                                     <td><?php echo $row['address']; ?></td>
-                                    <td><?php echo $row['material_name']; ?></td>
-                                    <td><?php echo $row['type_name']; ?></td>
                                     <td><a href="../controller/suppliers/edit_sup.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-warning">Edit</a></td>
                                     <td><a href="../controller/suppliers/delete_sup.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                                 </tr>

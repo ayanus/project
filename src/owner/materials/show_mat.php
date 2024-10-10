@@ -23,26 +23,21 @@
             <div class="main">
                 <div class="container">
                     <!-- <h4>เพิ่มข้อมูลวัตถุดิบและอุปกรณ์</h4>     -->
-                    <div class="header">เพิ่มข้อมูลวัตถุดิบและอุปกรณ์</div>
+                    <div class="header">วัตถุดิบและอุปกรณ์</div>
                     <!-- <a href="add_mat.php"><button type="button" class="btn btn-success mb-3">เพิ่มอุปกรณ์และวัตถุดิบ+</button></a> -->
                     <div class="row g-4">
                             <div class="col-md-8 col-sm-12">
-                                <form action="../controller/materials/insert_mat.php" method="post" enctype="multipart/form-data">
+                                <form action="../controller/materials/update_mat.php" method="post" enctype="multipart/form-data">
                                     <div class="row g-3 mb-3">
-                                        <div class="col-sm-4">
-                                            <label class="form-label">ชื่อวัตถุดิบและอุปกรณ์</label>
-                                            <input type="text" class="form-control" name="material_name" required>
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <label class="form-label">ประเภท</label>
-                                            <select class="form-select" aria-label="Default select example" id="type" name="type_id">
+                                    <div class="col-sm-4">
+                                            <label class="form-label">วัตถุดิบและอุปกรณ์</label>
+                                            <select class="form-select" aria-label="Default select example" id="type" name="material_id">
                                                 <?php
-                                                $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
+                                                $sql="SELECT * FROM materials ORDER BY material_id ";
                                                 $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
                                                 while($row=mysqli_fetch_array($hand)){
                                                 ?>
-                                                <option value="<?=$row['type_id']?>"><?=$row['type_name']?></option>
+                                                <option value="<?=$row['material_id']?>"><?=$row['material_name']?></option>
                                                 <?php 
                                                     } 
                                                 ?>
@@ -62,18 +57,10 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-sm-6">
-                                            <label for="formFile" class="form-label">รูปภาพ</label>
-                                            <input type="file" class="form-control" name="material_img" accept="image/png, image/jpg,image/jpeg">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <label class="form-label">รายละเอียด</label>
-                                            <textarea class="form-control" name="material_detail" row="3" required></textarea>
-                                        </div>
                                     </div>
 
                                     <button class="btn btn-primary" type="submit">บันทึก</button>
+                                    <a href="add_mat.php"><button class="btn btn-secondary" type="button">+ เพิ่มวัตถุดิบอุปกรณ์ใหม่</button></a>
                                     <hr class="my-4">
                                 </form>
                             </div>
@@ -89,7 +76,8 @@
                             <a class="nav-link" aria-current="true" href="../ordermat/show_odrmat.php">สั่งซื้อ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Disabled</a>
+                            <a class="nav-link" href="../ordermat/show_cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></a>
+
                         </li>
                         </ul>
                     </div>

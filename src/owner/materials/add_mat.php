@@ -23,9 +23,8 @@
             <div class="main">
                 <div class="container">    
                     <div class="header">เพิ่มอุปกรณ์และวัตถุดิบ</div>
-                    <div class="content">
-                        <div class="row g-4">
-                            <div class="col-md-8 col-sm-14">
+                    <div class="row g-4">
+                            <div class="col-md-8 col-sm-12">
                                 <form action="../controller/materials/insert_mat.php" method="post" enctype="multipart/form-data">
                                     <div class="row g-3 mb-3">
                                         <div class="col-sm-4">
@@ -35,7 +34,7 @@
 
                                         <div class="col-sm-3">
                                             <label class="form-label">ประเภท</label>
-                                            <select class="form-select" aria-label="Default select example" id="type" name="material_type">
+                                            <select class="form-select" aria-label="Default select example" id="type" name="type_id">
                                                 <?php
                                                 $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
                                                 $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
@@ -44,41 +43,32 @@
                                                 <option value="<?=$row['type_id']?>"><?=$row['type_name']?></option>
                                                 <?php 
                                                     } 
-                                                    mysqli_close($conn)
                                                 ?>
                                             </select>                                    
                                         </div>
 
                                         <div class="col-sm-2">
-                                            <label class="form-label">จำนวน</label>
-                                            <input type="text" class="form-control" name="quantity" required>
+                                            <label class="form-label">ราคา (ต่อ 1 หน่วย)</label>
+                                            <input type="text" class="form-control" name="price" required>
                                         </div>
 
-                                        <div class="col-sm-3">
-                                            <label class="form-label">หน่วย</label>
-                                            <select id="base_unit" name="base_unit" class="form-select" required>
-                                                <option value="แพ็ค">แพ็ค</option>
-                                                <option value="กิโลกรัม">กิโลกรัม</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <label for="formFile" class="form-label">รูปภาพ</label>
                                             <input type="file" class="form-control" name="material_img" accept="image/png, image/jpg,image/jpeg">
                                         </div>
 
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <label class="form-label">รายละเอียด</label>
                                             <textarea class="form-control" name="material_detail" row="3" required></textarea>
                                         </div>
                                     </div>
 
                                     <button class="btn btn-primary" type="submit">บันทึก</button>
+                                    <button class="btn btn-danger" type="reset">ยกเลิก</button>
                                     <hr class="my-4">
                                 </form>
                             </div>
-                        </div> 
-                    </div>    
+                        </div>
                 </div>
             </div>
         </div>

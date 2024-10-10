@@ -1,5 +1,9 @@
 <?php
     include 'C:/xampp/htdocs/project/config/database.php';
+
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +30,15 @@
         </div>
         
             <div class="main">
-                <div class="container">   
+                <div class="container">  
                     <div class="header">สั่งซื้ออุปกรณ์และวัตถุดิบ</div>
+                    <?php if(!empty($_SESSION['message'])): ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <?php echo $_SESSION['message']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <?php unset($_SESSION['message']); ?>
+                                <?php endif; ?>
                         <div class="card">
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs">
@@ -38,7 +49,7 @@
                                     <a class="nav-link active" aria-current="true" href="show_odrmat.php">สั่งซื้อ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Disabled</a>
+                                    <a class="nav-link" href="show_cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></a>
                                 </li>
                                 </ul>
                             </div>
@@ -85,10 +96,24 @@
                                     // ปรับ Query ขึ้นอยู่กับการเลือกประเภท
                                     if ($type_id == 0) {
                                         // ถ้าไม่มีการเลือกประเภท ให้แสดงสินค้าทั้งหมด
-                                        $query =  mysqli_query($conn, "SELECT * FROM materials INNER JOIN Type_Mat ON materials.type_id = Type_Mat.type_id ORDER BY type_id");
+                                        $query =  mysqli_query($conn, "SELECT materials.*, supplier.supplier_id, materials_suppliers.material_id, type_mat.type_name
+                                                                        FROM materials
+                                                                        INNER JOIN materials_suppliers 
+                                                                            ON materials.material_id = materials_suppliers.material_id
+                                                                        INNER JOIN supplier
+                                                                            ON materials_suppliers.supplier_id = supplier.supplier_id
+                                                                        INNER JOIN type_mat
+                                                                            ON materials.type_id = type_mat.type_id ORDER BY materials.material_id");
                                     } else {
                                         // ถ้าเลือกประเภท ให้แสดงเฉพาะสินค้านั้น
-                                        $query =  mysqli_query($conn, "SELECT * FROM materials INNER JOIN Type_Mat ON materials.type_id = Type_Mat.type_id WHERE materials.type_id = $type_id ORDER BY material_id");
+                                        $query =  mysqli_query($conn, "SELECT materials.*, supplier.supplier_id, materials_suppliers.material_id, type_mat.type_name
+                                                                        FROM materials
+                                                                        INNER JOIN materials_suppliers 
+                                                                            ON materials.material_id = materials_suppliers.material_id
+                                                                        INNER JOIN supplier
+                                                                            ON materials_suppliers.supplier_id = supplier.supplier_id
+                                                                        INNER JOIN type_mat
+                                                                            ON materials.type_id = type_mat.type_id WHERE materials.type_id = $type_id ORDER BY materials.material_id");
                                     }
                                     $rows = mysqli_num_rows($query);
                                 ?>
@@ -99,18 +124,19 @@
                                             <div class="col">
                                                 <div class="card">
                                                     <?php if(!empty($mat['material_img'])): ?>
-                                                        <img src="/project/uploads/<?php echo $mat['material_img'] ?>" class="card-img-top" alt="material image">
+                                                        <img src="/project/uploads/<?php echo $mat['material_img'] ?>" class="card-img-top" style="height: 200px;" alt="material image">
                                                     <?php else: ?>
                                                         <img src="/project/img-product/no-img.jpg" class="card-img-top" alt="...">
                                                     <?php endif; ?>
                                                     <div class="card-body">
                                                         <h5 class="card-title"><?= $mat['material_name'] ?></h5>
+                                                        <p class="card-text text-success mb-0 fw-bold"><?= $mat['price'] ?> บาท</p>
                                                         <p class="card-text text-muted"><?= $mat['material_detail'] ?></p>
                                                         <div>
                                                             <small class="card-text">คงเหลือ <?= $mat['quantity'] ?> <?= $mat['base_unit'] ?></small>
                                                             <small class="card-text"><?= $mat['stock_quantity'] ?> <?= $mat['unit_type'] ?></small>
                                                         </div>
-                                                        <a href="#" class="btn btn-primary mt-2 w-100">ซื้อสินค้า</a>
+                                                        <a href="cart.php?material_id=<?php echo $mat['material_id']?>" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</a>
                                                     </div>
                                                 </div>
                                             </div>
