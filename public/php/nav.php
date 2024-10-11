@@ -7,7 +7,7 @@
         </li>
         
         <li>
-            <a href="#">
+            <a href="/project/src/owner/bee/show_bee.php">
                 <span class="title">ข้อมูลผึ้ง</span>
             </a>
         </li>

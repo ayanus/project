@@ -29,7 +29,7 @@
                             <div class="col-md-8 col-sm-12">
                                 <form action="../controller/materials/update_mat.php" method="post" enctype="multipart/form-data">
                                     <div class="row g-3 mb-3">
-                                    <div class="col-sm-4">
+                                        <div class="col-sm-4">
                                             <label class="form-label">วัตถุดิบและอุปกรณ์</label>
                                             <select class="form-select" aria-label="Default select example" id="type" name="material_id">
                                                 <?php

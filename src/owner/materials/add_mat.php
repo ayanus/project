@@ -23,7 +23,7 @@
             <div class="main">
                 <div class="container">    
                     <div class="header">เพิ่มอุปกรณ์และวัตถุดิบ</div>
-                    <div class="row g-4">
+                        <div class="row g-4">
                             <div class="col-md-8 col-sm-12">
                                 <form action="../controller/materials/insert_mat.php" method="post" enctype="multipart/form-data">
                                     <div class="row g-3 mb-3">

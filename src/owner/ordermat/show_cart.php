@@ -54,18 +54,7 @@
                                 </ul>
                             </div>
                             <div class="card-body">
-                                <table class="table">
-                                    <thead class="table-dark">
-                                        <!-- <tr>
-                                            <th style="width: 200px;">รูปภาพ</th>
-                                            <th style="width: 200px;">รายการ</th>
-                                            <th style="width: 200px;">ราคา</th>
-                                            <th style="width: 200px;">จำนวน</th>
-                                            <th style="width: 200px;">รวม</th>
-                                            <th> </th>
-                                        </tr> -->
-                                    </thead>
- 
+                                <!-- <form action="../controller/ordermat/t.send_order.php" method="post">  -->
                                     <?php
 
                                     $material_id = [];
@@ -97,6 +86,7 @@
                                                 if (!isset($suppliers[$supplier_id])) {
                                                     $suppliers[$supplier_id] = [
                                                         'supplier_name' => $row['supplier_name'],
+                                                        'company' => $row['company'],
                                                         'supplier_email' => $row['supplier_email'],
                                                         'address' => $row['address'],
                                                         'tel' => $row['tel'],
@@ -110,36 +100,49 @@
                                                     'material_img' => $row['material_img'],
                                                     'quantity' => $_SESSION['cart'][$row['material_id']],
                                                     'price' => $row['price'],
+                                                    'base_unit' => $row['base_unit'],
                                                     'total' => $row['price'] * $_SESSION['cart'][$row['material_id']],
                                                     'material_id' => $row['material_id']
                                                 ];
                                             }
 
+                                            $grandTotal = 0;
+                                            echo "<form action='../controller/ordermat/send_order.php' method='get'>";
+
                                             foreach ($suppliers as $supplier_data) {
-                                                echo "<h3>ใบเสร็จรับเงิน</h3>";
-                                                echo "<p>ผู้จำหน่าย: {$supplier_data['supplier_name']}</p>";
-                                                echo "<p>เลขที่ {$supplier_data['address']}</p>";
+                                                $supplier_id = $supplier_data['supplier_id'];
+                                                echo "<input type='hidden' name='supplier_id' value='{$supplier_id}'>";                                              
+                                                echo "<h3>ใบสั่งซื้อ</h3>";
+                                                echo "<p>ผู้จัดจำหน่าย {$supplier_data['supplier_name']}</p>";
+                                                echo "<p>ชื่อผู้จำหน่าย {$supplier_data['company']}</p>";
+                                                echo "<p>ที่อยู่ {$supplier_data['address']}</p>";
                                                 echo "<p>เบอร์โทร {$supplier_data['tel']}</p>";
                                                 echo "<p>เลขประจำตัวผู้เสียภาษี {$supplier_data['supplier_id']}</p>";
-                                                echo "<p>วันที่: " . date("d/m/Y") . "</p>";                                                echo "<table class='table'>
-                                                        <thead class='table-dark'>
+                                                echo "<p>วันที่ " . date("d/m/Y") . "</p>";  
+                                                echo "<table class='table'>
+                                                        <thead class='table-secondary'>
                                                             <tr>
+                                                                <th>รหัสสินค้า</th>
                                                                 <th>รูปภาพ</th>
                                                                 <th>รายการ</th>
-                                                                <th>ราคา</th>
                                                                 <th>จำนวน</th>
+                                                                <th>หน่วย</th>
+                                                                <th>ราคา</th>
                                                                 <th>รวม</th>
                                                                 <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>";
                                                         foreach ($supplier_data['materials'] as $material) {
+                                                        $totalPrice = $material['price'] * $_SESSION['cart'][$material['material_id']]; // คำนวณราคารวมต่อสินค้า
+                                                        $grandTotal += $totalPrice; // เพิ่มยอดรวมของแต่ละสินค้าลงในยอดรวมทั้งหมด
                                                 ?>
                                     
                                     <script>
                                     function updateTotal(input, price, materialId) {
                                         var quantity = input.value;  // ดึงค่าจาก input ที่เปลี่ยนแปลง
                                         var total = (quantity * price).toFixed(2);  // คำนวณราคารวม และแปลงเป็นทศนิยม 2 ตำแหน่ง
+                                        
 
                                         // อัปเดตยอดรวมในฟิลด์ที่แสดงผล
                                         document.getElementById('total_' + materialId).textContent = total;
@@ -148,18 +151,26 @@
 
                                     <tbody>
                                         <tr>
-                                            <td><img src="/project/uploads/<?php echo htmlspecialchars($material['material_img']); ?>" alt="Material Picture" style="width:100px;height:100px;"></td>
+                                            <td><?php echo $material['material_id']; ?></td>
+                                            <td><img src="/project/uploads/<?php echo htmlspecialchars($material['material_img']); ?>" name="material_img" alt="Material Picture" style="width:100px;height:100px;"></td>
                                             <td><?php echo $material['material_name']; ?></td>
-                                            <td><?php echo number_format($material['price'], 2); ?></td>
                                             <!-- เพิ่ม oninput เพื่อเรียกฟังก์ชันเมื่อจำนวนเปลี่ยน -->
                                             <td><input type="number" name="quantity" value="<?php echo $_SESSION['cart'][$material['material_id']]; ?>" class="form-control w-50" min="1" oninput="updateTotal(this, <?php echo $material['price']; ?>, <?php echo $material['material_id']; ?>)"></td>
+                                            <td><?php echo $material['base_unit']; ?></td>
+                                            <td><?php echo number_format($material['price'], 2); ?></td>
                                             <!-- เพิ่ม span เพื่อแสดงราคารวม -->
                                             <td id="total_<?php echo $material['material_id']; ?>"><?php echo number_format($material['price'] * $_SESSION['cart'][$material['material_id']], 2); ?></td>
-                                            <td><a href="../controller/materials/delete_mat.php?material_id=<?=$material['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
+                                            <td><a href="../controller/ordermat/cart-delete.php?material_id=<?=$material['material_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">ลบ</a></td>
                                         </tr>
                                         <?php
                                         }
+                                        
                                         echo "</tbody></table><br>";
+                                        echo "<h5>ยอดรวมทั้งหมด: " . number_format($grandTotal, 2) . " บาท</h5>";                                        
+                                        echo "<a href='../controller/ordermat/send_order.php?supplier_id='><button class='btn btn-primary mb-3'>ส่งคำสั่งซื้อ</button></a>";
+                                        echo "<hr>";
+                                        echo "</form><hr>";
+                                        
                                     }
                                     } else {
                                         echo "<tr><td colspan='6'>ไม่มีสินค้าในตะกร้า</td></tr>";
