@@ -13,21 +13,15 @@
                     </a>
                 </li>
 
-                <!-- <li>
-                    <a href="/project/src/owner/ordermat/show_odrmat.php">
-                        <span class="title">สั่งซื้ออุปกรณ์และวัตถุดิบ</span>
-                    </a>
-                </li> -->
-
                 <li>
-                    <a href="/project/src/owner/products/show_pro.php">
-                        <span class="title">สินค้า</span>
+                    <a href="/project/src/owner/production/show_production.php">
+                        <span class="title">การผลิต</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
-                        <span class="title">การผลิต</span>
+                    <a href="/project/src/owner/products/show_pro.php">
+                        <span class="title">สินค้า</span>
                     </a>
                 </li>
 

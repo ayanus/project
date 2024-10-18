@@ -22,7 +22,7 @@
         
             <div class="main">
                 <div class="container">
-                <div class="header">ข้อมูลผึ้งใหม่</div>
+                <div class="header">ข้อมูลลังผึ้งใหม่</div>
 
                     <div class="row g-4">
                         <div class="col-md-8 col-sm-12">

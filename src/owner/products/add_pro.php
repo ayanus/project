@@ -30,24 +30,36 @@
                             <a2>เพิ่มสินค้า</a2>
                         </div>
 
-                        <div class="content">
-                            <form action="../controller/products/insert_pro.php" method="post">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="product_name" required>
-                                
-                                <label for="Quantity" class="form-label mt-4">picture</label>
-                                <input type="file" class="form-control" id="picture" name="picture" accept="image/*" required>
+                        <div class="row g-4">
+                        <div class="col-md-8 col-sm-12">
+                            <form action="../controller/products/insert_pro.php" method="post" enctype="multipart/form-data">
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-3">
+                                        <label class="form-label">ชื่อสินค้า</label>
+                                        <input type="text" class="form-control" name="product_name" required>                                    
+                                    </div>
 
-                                <label for="Quantity" class="form-label mt-4">price</label>
-                                <input type="text" class="form-control" id="price" name="price" required>
+                                    <div class="col-sm-5">
+                                            <label for="formFile" class="form-label">รูปภาพสินค้า</label>
+                                            <input type="file" class="form-control" name="picture" accept="image/png, image/jpg,image/jpeg">
+                                        </div>
 
-                                <label for="Quantity" class="form-label mt-4">quantity</label>
-                                <input type="text" class="form-control" id="quantity" name="quantity" required>
+                                    <div class="col-sm-2">
+                                        <label class="form-label">ราคา</label>
+                                        <input type="number" class="form-control" name="price" required>
+                                    </div>
 
-                                <input type="submit" name="1" class="btn btn-primary mt-4" value="Submit">
-                                <a href="show_pro.php" class="btn btn-secondary mt-4">Cancel</a>          
+                                    <div class="col-sm-2">
+                                        <label class="form-label">อายุสินค้า (ปี)</label>
+                                        <input type="number" class="form-control" name="product_age" required>
+                                    </div>
+
+                                    
+                                <button class="btn btn-primary" type="submit">+ เพิ่มข้อมูลสินค้า</button>
+                                <hr class="my-4">
                             </form>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

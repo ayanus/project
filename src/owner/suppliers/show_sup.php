@@ -57,7 +57,7 @@
 
                             <tbody>
                                 <tr>
-                                    <td><img src="/project/uploads/<?php echo htmlspecialchars($row['supplier_img']); ?>" alt="supplier Picture" style="width:100px;height:100px;"></td>
+                                    <td><img src="/project/uploads/<?php echo htmlspecialchars($row['supplier_img']); ?>" alt="supplier Picture" style="height:100px;"></td>
                                     <td><?php echo $row['supplier_name']; ?></td>
                                     <td><?php echo $row['tel']; ?></td>
                                     <td><?php echo $row['address']; ?></td>
