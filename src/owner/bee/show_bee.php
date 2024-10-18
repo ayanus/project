@@ -25,7 +25,8 @@
                     <div class="header">ข้อมูลผึ้ง</div>
 
                     <a href="add_data_bee.php"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">เพิ่มผลผลิต</button></a>
-                                            
+                    <a href="add_bee.php"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">เพิ่มสายพันธุ์ผึ้ง</button></a>
+                      
                     <div class="d-flex flex-row gap-3 justify-content-center">
                         <?php
                             $sql = "

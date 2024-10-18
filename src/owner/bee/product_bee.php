@@ -37,6 +37,73 @@
                         </div>
 
                         <div class="card-body">
+                        <table class="table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ผลผลิต</th>
+                                        <th>จำนวนรวมในคลัง</th>
+                                        <th>สายพันธุ์ผึ้ง</th>
+                                        <th>อาหารที่ใช้เลี้ยง</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+
+                                <?php
+                            
+
+                                $sql = "SELECT 
+        CASE 
+            -- ถ้าเป็นน้ำผึ้ง ให้แยกตามสายพันธุ์ผึ้งและอาหาร
+            WHEN pb.product_bee_name = 'น้ำผึ้ง' THEN CONCAT(b.bee_name, ' (อาหาร: ', b.bee_food, ')')
+            -- สำหรับผลผลิตชนิดอื่น (โพรพอลิส, ไขผึ้ง, นมผึ้ง) ให้รวมตามชื่อของผลผลิต
+            ELSE pb.product_bee_name 
+        END AS product_type,  
+        SUM(bk.quantity) AS total_quantity,  -- รวมจำนวนสินค้า
+        bk.unit, b.bee_name, b.bee_id, b.bee_food, bk.unit, pb.product_bee_name
+    FROM bee b
+    JOIN Beekeep_detail bk ON b.bee_id = bk.bee_id
+    JOIN product_bee pb ON pb.product_bee_id = bk.product_bee_id
+    WHERE pb.product_bee_name IN ('น้ำผึ้ง', 'โพรพอลิส', 'ไขผึ้ง', 'นมผึ้ง')  -- กรองเฉพาะผลผลิตที่ต้องการ
+    GROUP BY 
+        CASE 
+            -- จัดกลุ่มสำหรับน้ำผึ้ง (แยกตามสายพันธุ์ผึ้งและอาหาร)
+            WHEN pb.product_bee_name = 'น้ำผึ้ง' THEN CONCAT(b.bee_name, ' (อาหาร: ', b.bee_food, ')')
+            -- จัดกลุ่มสำหรับผลผลิตอื่น ๆ (ตามชื่อของผลผลิต)
+            ELSE pb.product_bee_name 
+        END
+    ORDER BY product_type;
+";
+
+                                    // เพิ่มการเรียงลำดับตามสายพันธุ์ผึ้ง
+                                    // $sql .= "GROUP BY bee.bee_name, bee.bee_food ORDER BY type_bee.bee_name";
+
+                                    $result = mysqli_query($conn, $sql);
+
+                                    // ตรวจสอบว่ามีข้อมูลหรือไม่
+                                    if (!$result) {
+                                        die("Error: " . mysqli_error($conn));
+                                    }
+
+                                    // แสดงผลข้อมูล
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        // การแสดงผลตามข้อมูลที่ดึงมา
+
+                                    ?>
+
+                                
+                                <tbody>
+                                    <tr>
+                                        <td><?php echo $row['product_bee_name']; ?></td>
+                                        <td><?php echo $row['total_quantity'] . ' ' . $row['unit']; ?></td>                                        
+                                        <td><?php echo $row['bee_name']; ?></td>
+                                        <td><?php echo $row['bee_food']; ?></td>
+                                        <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#beeModal<?php echo $row['bee_id']; ?>">รายละเอียด</button></td>
+                                    </tr>
+                                </tbody>
+                                <?php
+                                    }
+                                ?>
+                            </table>
                         </div>
                     </div>
                 </div>

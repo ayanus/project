@@ -32,10 +32,7 @@
                                     <th>ชื่อ</th>
                                     <th>เบอร์โทร</th>
                                     <th>ที่อยู่</th>
-                                    <th>สินค้า</th>
-                                    <th>ประเภทสินค้า</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th> </th>
                                 </tr>
                             </thead>
 
@@ -51,10 +48,45 @@
                                     <td><?php echo $row['supplier_name']; ?></td>
                                     <td><?php echo $row['tel']; ?></td>
                                     <td><?php echo $row['address']; ?></td>
-                                    <td><a href="../controller/suppliers/edit_sup.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-warning">Edit</a></td>
-                                    <td><a href="../controller/suppliers/delete_sup.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
+                                    <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supModal<?php echo $row['supplier_id']; ?>">รายละเอียด</button>
+                                        <a href="../controller/suppliers/edit_sup.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-warning">Edit</a>
+                                    <a href="../controller/suppliers/delete_sup.php?supplier_id=<?=$row['supplier_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                                 </tr>
                             </tbody>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="supModal<?php echo $row['supplier_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">ผลผลิตจากลังผึ้งรหัส <?php echo $row['supplier_id']; ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>บริษัท : </strong> <?php echo $row['supplier_name']; ?></p>
+                                                <p><strong>ตัวแทนขาย : </strong> <?php echo $row['company']; ?></p>
+                                                <p><strong>สินค้า : </strong> <?php echo $row['material_name']; ?></p>
+                                                    <?php
+                                                        $sql_product = "SELECT supplier.supplier_name, supplier.company, materials_suppliers.mat_sup_id , materials.material_name
+                                                        FROM supplier 
+                                                        INNER JOIN materials_suppliers ON materials_suppliers.supplier_id = supplier.supplier_id
+                                                        INNER JOIN materials ON materials_suppliers.material_id = materials.material_id 
+                                                        WHERE supplier.supplier_id = '" . $row['supplier_id'] . "'";
+                                                        $result_product = mysqli_query($conn, $sql_product);
+                                                        if ($result_product && mysqli_num_rows($result_product) > 0) {
+                                                            $products = array();
+                                                            while ($row_product = mysqli_fetch_assoc($result_product)) {
+                                                                $products[] = htmlspecialchars($row_product['material_name']) . ' ' . '<br>';
+                                                            }
+                                                            echo implode($products);
+                                                        } else {
+                                                            echo "ไม่มีข้อมูลผลผลิต";
+                                                        }
+                                                    ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             
                             <?php 
                                 } mysqli_close($conn);
