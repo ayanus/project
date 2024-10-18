@@ -37,10 +37,23 @@
                             </thead>
 
                             <?php
-                                $sql = "SELECT * FROM supplier ORDER BY supplier_id";
+                                $sql = "SELECT supplier.supplier_name, supplier.company, GROUP_CONCAT(materials.material_name SEPARATOR ', ') as material_list, supplier.supplier_id, supplier.tel, supplier.address, supplier.supplier_img, supplier.supplier_email
+                                        FROM supplier 
+                                        INNER JOIN materials_suppliers ON materials_suppliers.supplier_id = supplier.supplier_id
+                                        INNER JOIN materials ON materials_suppliers.material_id = materials.material_id 
+                                        GROUP BY supplier.supplier_id
+                                        ORDER BY supplier.supplier_id ";
                                 $result = mysqli_query($conn, $sql);
-                                while($row = mysqli_fetch_array($result)){ 
-                            ?>
+                                if (!$result) {
+                                    die("Error: " . mysqli_error($conn));
+                                }
+
+                                // แสดงผลข้อมูล
+                                while ($row = mysqli_fetch_array($result)) {
+                                    // การแสดงผลตามข้อมูลที่ดึงมา
+
+                                ?>
+                            
 
                             <tbody>
                                 <tr>
@@ -59,26 +72,29 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">ผลผลิตจากลังผึ้งรหัส <?php echo $row['supplier_id']; ?></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">ผู้จัดจำหน่าย : <?php echo $row['supplier_id']; ?></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p><strong>บริษัท : </strong> <?php echo $row['supplier_name']; ?></p>
                                                 <p><strong>ตัวแทนขาย : </strong> <?php echo $row['company']; ?></p>
-                                                <p><strong>สินค้า : </strong> <?php echo $row['material_name']; ?></p>
+                                                <p><strong>E-mail : </strong> <?php echo $row['supplier_email']; ?></p>                                                
+                                                <p><strong>สินค้า : </strong> </p>
                                                     <?php
-                                                        $sql_product = "SELECT supplier.supplier_name, supplier.company, materials_suppliers.mat_sup_id , materials.material_name
+                                                        $stmt = $conn->prepare("SELECT supplier.supplier_name, supplier.company, materials_suppliers.mat_sup_id , materials.material_name
                                                         FROM supplier 
                                                         INNER JOIN materials_suppliers ON materials_suppliers.supplier_id = supplier.supplier_id
                                                         INNER JOIN materials ON materials_suppliers.material_id = materials.material_id 
-                                                        WHERE supplier.supplier_id = '" . $row['supplier_id'] . "'";
-                                                        $result_product = mysqli_query($conn, $sql_product);
+                                                        WHERE supplier.supplier_id = ?");
+                                                        $stmt->bind_param("i", $row['supplier_id']);
+                                                        $stmt->execute();
+                                                        $result_product = $stmt->get_result();
                                                         if ($result_product && mysqli_num_rows($result_product) > 0) {
                                                             $products = array();
                                                             while ($row_product = mysqli_fetch_assoc($result_product)) {
-                                                                $products[] = htmlspecialchars($row_product['material_name']) . ' ' . '<br>';
+                                                                $products[] = '<li>' . htmlspecialchars($row_product['material_name']) . '</li>';
                                                             }
-                                                            echo implode($products);
+                                                            echo '<ul>' . implode('', $products) . '</ul>';
                                                         } else {
                                                             echo "ไม่มีข้อมูลผลผลิต";
                                                         }
@@ -88,10 +104,11 @@
                                     </div>
                                 </div>
                             
-                            <?php 
+                                <?php 
                                 } mysqli_close($conn);
                             ?>
                         </table>
+                        
                     </div>
                 </div>
             </div>

@@ -145,9 +145,9 @@
                                                         if ($result_product && mysqli_num_rows($result_product) > 0) {
                                                             $products = array();
                                                             while ($row_product = mysqli_fetch_assoc($result_product)) {
-                                                                $products[] = htmlspecialchars($row_product['product_bee_name'] . ' ' . $row_product['quantity'] . ' ' . $row_product['unit']) . '<br>';
+                                                                $products[] = '<li>' . htmlspecialchars($row_product['product_bee_name'] . ' ' . $row_product['quantity'] . ' ' . $row_product['unit']) . '</li>';
                                                             }
-                                                            echo implode($products);
+                                                            echo '<ul>' . implode('', $products) . '</ul>';
                                                         } else {
                                                             echo "ไม่มีข้อมูลผลผลิต";
                                                         }
