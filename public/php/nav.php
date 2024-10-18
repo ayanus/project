@@ -1,10 +1,5 @@
 <div class="navigation">
     <ul>
-        <li>
-            <a href="#">
-                <span class="title">จัดการการขาย</span>
-             </a>
-        </li>
         
         <li>
             <a href="/project/src/owner/bee/show_bee.php">

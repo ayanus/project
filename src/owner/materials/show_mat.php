@@ -25,7 +25,7 @@
                     <!-- <h4>เพิ่มข้อมูลวัตถุดิบและอุปกรณ์</h4>     -->
                     <div class="header">วัตถุดิบและอุปกรณ์</div>
                     <!-- <a href="add_mat.php"><button type="button" class="btn btn-success mb-3">เพิ่มอุปกรณ์และวัตถุดิบ+</button></a> -->
-                    <div class="row g-4">
+                        <div class="row g-4">
                             <div class="col-md-8 col-sm-12">
                                 <form action="../controller/materials/update_mat.php" method="post" enctype="multipart/form-data">
                                     <div class="row g-3 mb-3">
@@ -159,6 +159,8 @@
                                         }
                                     ?>
                                 </table>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

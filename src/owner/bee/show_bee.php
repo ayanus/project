@@ -19,53 +19,149 @@
         <div class="top">
             <?php include '../../../public/php/topbar.php'; ?>
         </div>
-        
+                       
             <div class="main">
                 <div class="container">
-                <div class="header">ข้อมูลผึ้ง</div>
+                    <div class="header">ข้อมูลผึ้ง</div>
 
-                    <div class="row g-4">
-                        <div class="col-md-8 col-sm-12">
-                            <form action="../controller/bee/insert_bee.php" method="post" enctype="multipart/form-data">
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-3">
-                                        <label class="form-label">สายพันธุ์ผึ้ง</label>
-                                        <select class="form-select" aria-label="Default select example" id="type" name="Type_bee">
-                                            <?php
-                                            $sql="SELECT * FROM Type_bee ORDER BY bee_name ";
-                                            $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
-                                            while($row=mysqli_fetch_array($hand)){
-                                            ?>
-                                            <option value="<?=$row['type_bee_id']?>"><?=$row['bee_name'] ?></option>
-                                            <?php 
-                                                } 
-                                            ?>
-                                        </select>                                    
+                    <a href="add_data_bee.php"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">เพิ่มผลผลิต</button></a>
+                                            
+                    <div class="d-flex flex-row gap-3 justify-content-center">
+                        <?php
+                            $sql = "
+                            SELECT bee.bee_id, bee.bee_name, SUM(bee.quantity) AS total_quantity, 
+                            GROUP_CONCAT(DISTINCT bee_food SEPARATOR ', ') AS food_list, 
+                            type_bee.* FROM bee 
+                            INNER JOIN type_bee ON bee.bee_name = type_bee.bee_name 
+                            GROUP BY bee.bee_name 
+                            ORDER BY type_bee.bee_name";
+                            $result = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($result)){ 
+                        ?>
+                            <div class="card mb-3" style="max-width: 500px;">
+                                <div class="row g-2">
+                                    <div class="col-md-7">
+                                        <img src="/project/img-product/ผึ้งชันโรง.jpg" class="img-fluid rounded-start" alt="..." style="height:200px;">
                                     </div>
-
-                                    <div class="col-sm-2">
-                                        <label class="form-label">จำนวน(ลัง)</label>
-                                        <input type="text" class="form-control" name="price" required>
+                                    <div class="col-md-5">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $row['bee_name']; ?></h5>
+                                            <h1 class="card-text text-center"><?php echo $row['total_quantity']; ?> ลัง</h1>
+                                            <h5 class="card-text">อาหารที่ใช้เลี้ยง</h5>
+                                            <p class="food-list">
+                                                <?php echo htmlspecialchars($row['food_list']); ?>
+                                            </p>
+                                        </div>
                                     </div>
+                                    
+                                </div>
+                            </div>
+                        <?php } ?>  
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="true" href="show_bee.php">ข้อมูลผึ้ง</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="true" href="product_bee.php">ผลผลิตจากผึ้ง</a>
+                            </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>วันที่เก็บผลผลิต</th>
+                                        <th>รหัสลังผึ้ง</th>
+                                        <th>สายพันธุ์ผึ้ง</th>
+                                        <th>อาหารที่ใช้เลี้ยง</th>
+                                        <th>รายละเอียด</th>
+                                        <th>ผลผลิต</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
 
-                                    <div class="col-sm-3">
-                                        <label for="formFile" class="form-label">อาหารที่ใช้เลี้ยง</label>
-                                        <input type="text" class="form-control" name="b_food" required>
-                                    </div>
+                                <?php
+                            
 
-                                    <div class="col-sm-3">
-                                        <label class="form-label">รายละเอียด</label>
-                                        <textarea class="form-control" name="bee_detail" row="3" required></textarea>
+                                $sql = "SELECT bee.bee_id, bee.bee_name, bee.bee_food, bee.bee_detail, beekeep_detail.date
+                                        FROM bee 
+                                        INNER JOIN type_bee ON bee.bee_name = type_bee.bee_name 
+                                        INNER JOIN beekeep_detail ON bee.bee_id = beekeep_detail.bee_id 
+                                        LEFT JOIN beefood ON beefood.food_name = bee.bee_food 
+                                        WHERE 1=1
+                                        ";
+
+                                    // เพิ่มการเรียงลำดับตามสายพันธุ์ผึ้ง
+                                    $sql .= "GROUP BY bee.bee_name, bee.bee_food ORDER BY type_bee.bee_name";
+
+                                    $result = mysqli_query($conn, $sql);
+
+                                    // ตรวจสอบว่ามีข้อมูลหรือไม่
+                                    if (!$result) {
+                                        die("Error: " . mysqli_error($conn));
+                                    }
+
+                                    // แสดงผลข้อมูล
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        // การแสดงผลตามข้อมูลที่ดึงมา
+
+                                    ?>
+
+                                
+                                <tbody>
+                                    <tr>
+                                        <td><?php echo $row['date']; ?></td>
+                                        <td><?php echo $row['bee_id']; ?></td>
+                                        <td><?php echo $row['bee_name']; ?></td>
+                                        <td><?php echo $row['bee_food']; ?></td>
+                                        <td><?php echo $row['bee_detail']; ?></td>
+                                        <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#beeModal<?php echo $row['bee_id']; ?>">รายละเอียด</button></td>
+                                    </tr>
+                                </tbody>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="beeModal<?php echo $row['bee_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">ผลผลิตจากลังผึ้งรหัส <?php echo $row['bee_id']; ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>สายพันธุ์ผึ้ง : </strong> <?php echo $row['bee_name']; ?></p>
+                                                <p><strong>อาหาร : </strong> <?php echo $row['bee_food']; ?></p>
+                                                <p><strong>วันที่เก็บผลผลิต : </strong> <?php echo $row['date']; ?></p>
+                                                <p><strong>ผลผลิต : </strong> 
+                                                    <?php
+                                                        $sql_product = "SELECT product_bee.product_bee_name, beekeep_detail.quantity, beekeep_detail.unit 
+                                                        FROM beekeep_detail 
+                                                        INNER JOIN product_bee ON beekeep_detail.product_bee_id = product_bee.product_bee_id 
+                                                        WHERE beekeep_detail.bee_id = '" . $row['bee_id'] . "'";
+                                                        $result_product = mysqli_query($conn, $sql_product);
+                                                        if ($result_product && mysqli_num_rows($result_product) > 0) {
+                                                            $products = array();
+                                                            while ($row_product = mysqli_fetch_assoc($result_product)) {
+                                                                $products[] = htmlspecialchars($row_product['product_bee_name'] . ' ' . $row_product['quantity'] . ' ' . $row_product['unit']) . '<br>';
+                                                            }
+                                                            echo implode($products);
+                                                        } else {
+                                                            echo "ไม่มีข้อมูลผลผลิต";
+                                                        }
+                                                    ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit">+ เพิ่มข้อมูลผึ้ง</button>
-                                <hr class="my-4">
-                            </form>
+                                <?php
+                                    }
+                                ?>
+                            </table>
                         </div>
                     </div>
-                </div>
-                </div>
             </div>
         </div>
     </div>

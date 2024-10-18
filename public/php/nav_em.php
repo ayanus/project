@@ -1,13 +1,5 @@
 <div class="navigation">
     <ul>
-        <li>
-            <a href="#">
-                <span class="icon">
-                    <ion-icon name="receipt-outline"></ion-icon>
-                </span>
-                <span class="title">การขาย</span>
-             </a>
-        </li>
         
         <li>
             <a href="#">

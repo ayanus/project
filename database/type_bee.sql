@@ -1,0 +1,3 @@
+CREATE TABLE Type_bee (
+    type_bee_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    bee_name VARCHAR(255) NOT NULL);
