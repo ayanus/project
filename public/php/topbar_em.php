@@ -18,7 +18,7 @@ if (!isset($_SESSION['username'])) {
     </ul>
     
     <div class="user">
-        <a href="/project/src/employee/employee/show_em.php">Welcome K.<?php echo $_SESSION['username']; ?></a>
+        <a href="/project/src/employee/employee/showmore_em.php">Welcome K.<?php echo $_SESSION['username']; ?></a>
     </div>
 
     <div class="logout">

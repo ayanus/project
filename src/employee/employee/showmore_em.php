@@ -1,11 +1,4 @@
 <?php
-    // ob_start();
-    // include 'C:/xampp/htdocs/project/config/database.php';
-    // $id = $_GET['employee_id'];
-    // $sql="SELECT * FROM employee WHERE employee_id = $id";
-    // $result = mysqli_query($conn, $sql);
-    // $row = mysqli_fetch_array($result);
-
     ob_start();
     include 'C:/xampp/htdocs/project/config/database.php';
     // เตรียม Statement เพื่อป้องกัน SQL Injection
@@ -197,11 +190,11 @@
                             <div class="picture">
                                 <div class="text-center">
                                     <label>
-                                        <img src="/uploads/<?= isset($row['picture']) ? $row['picture'] : '' ?>" alt="profile">
+                                        <img src="/project/uploads/<?= isset($row['picture']) ? $row['picture'] : '' ?>" alt="profile" style="width:100px;height:100px;">
                                     </label>
                                 </div>
                                 <p>รหัสพนักงาน : <?= isset($row['employee_id']) ? $row['employee_id'] : '' ?></p>
-                                <p>รหัสแผนก : <a href="#"><?= isset($row['department_id']) ? $row['department_id'] : '' ?></a></p>
+                                <p>แผนก : <a href="#"><?= isset($row['department_name']) ? $row['department_name'] : '' ?></a></p>
                                 <p>เริ่มงานวันที่ : <?= isset($row['start_date']) ? $row['start_date'] : '' ?></p>
                                 <p>จบงานวันที่ : <?= isset($row['end_date']) ? $row['end_date'] : '' ?></p>
                             </div> 
