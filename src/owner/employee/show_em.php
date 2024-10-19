@@ -74,7 +74,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#salaryModal<?php echo $row['employee_id']; ?>">ดูข้อมูลเงินเดือน</button>
+                                    <a href="payment.php?employee_id=<?php echo $row['employee_id']; ?>" class="btn btn-success">ดูข้อมูลเงินเดือน</a>
                                     <button class="btn btn-warning" data-toggle="modal" data-target="#employeeModal<?php echo $row['employee_id']; ?>">เพิ่มเติม</button>
                                 </td>
                             </tr>
