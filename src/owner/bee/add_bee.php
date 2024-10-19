@@ -70,6 +70,7 @@
                                 </div>
 
                                 <button class="btn btn-primary" type="submit">+ เพิ่มข้อมูลผึ้ง</button>
+                                <a href="show_bee.php"><button class="btn btn-danger" type="button">ยกเลิก</button></a>
                                 <hr class="my-4">
                             </form>
                         </div>

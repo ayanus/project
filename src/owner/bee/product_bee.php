@@ -42,8 +42,7 @@
                                     <tr>
                                         <th>ผลผลิต</th>
                                         <th>จำนวนรวมในคลัง</th>
-                                        <th>สายพันธุ์ผึ้ง</th>
-                                        <th>อาหารที่ใช้เลี้ยง</th>
+                                        <th>หน่วย</th>
                                         <th> </th>
                                     </tr>
                                 </thead>
@@ -51,31 +50,16 @@
                                 <?php
                             
 
-                                $sql = "SELECT 
-        CASE 
-            -- ถ้าเป็นน้ำผึ้ง ให้แยกตามสายพันธุ์ผึ้งและอาหาร
-            WHEN pb.product_bee_name = 'น้ำผึ้ง' THEN CONCAT(b.bee_name, ' (อาหาร: ', b.bee_food, ')')
-            -- สำหรับผลผลิตชนิดอื่น (โพรพอลิส, ไขผึ้ง, นมผึ้ง) ให้รวมตามชื่อของผลผลิต
-            ELSE pb.product_bee_name 
-        END AS product_type,  
-        SUM(bk.quantity) AS total_quantity,  -- รวมจำนวนสินค้า
-        bk.unit, b.bee_name, b.bee_id, b.bee_food, bk.unit, pb.product_bee_name
-    FROM bee b
-    JOIN Beekeep_detail bk ON b.bee_id = bk.bee_id
-    JOIN product_bee pb ON pb.product_bee_id = bk.product_bee_id
-    WHERE pb.product_bee_name IN ('น้ำผึ้ง', 'โพรพอลิส', 'ไขผึ้ง', 'นมผึ้ง')  -- กรองเฉพาะผลผลิตที่ต้องการ
-    GROUP BY 
-        CASE 
-            -- จัดกลุ่มสำหรับน้ำผึ้ง (แยกตามสายพันธุ์ผึ้งและอาหาร)
-            WHEN pb.product_bee_name = 'น้ำผึ้ง' THEN CONCAT(b.bee_name, ' (อาหาร: ', b.bee_food, ')')
-            -- จัดกลุ่มสำหรับผลผลิตอื่น ๆ (ตามชื่อของผลผลิต)
-            ELSE pb.product_bee_name 
-        END
-    ORDER BY product_type;
-";
-
-                                    // เพิ่มการเรียงลำดับตามสายพันธุ์ผึ้ง
-                                    // $sql .= "GROUP BY bee.bee_name, bee.bee_food ORDER BY type_bee.bee_name";
+                                $sql = "SELECT CASE WHEN pb.product_bee_name = 'น้ำผึ้ง' THEN CONCAT(b.bee_name, ' (อาหาร: ', b.bee_food, ')')
+                                                ELSE pb.product_bee_name END AS product_type, SUM(bk.quantity) AS total_quantity,
+                                                bk.unit, b.bee_name, b.bee_id, b.bee_food, bk.unit, pb.product_bee_name, pb.product_bee_id , bk.date
+                                        FROM bee b
+                                        JOIN Beekeep_detail bk ON b.bee_id = bk.bee_id
+                                        JOIN product_bee pb ON pb.product_bee_id = bk.product_bee_id
+                                        WHERE pb.product_bee_name IN ('น้ำผึ้ง', 'โพรพอลิส', 'ไขผึ้ง', 'นมผึ้ง', 'เกสรผึ้ง')  -- กรองเฉพาะผลผลิตที่ต้องการ
+                                        GROUP BY CASE WHEN pb.product_bee_name = 'น้ำผึ้ง' THEN CONCAT(b.bee_name, ' (อาหาร: ', b.bee_food, ')')
+                                                    ELSE pb.product_bee_name END ORDER BY product_bee_id;
+                                    ";
 
                                     $result = mysqli_query($conn, $sql);
 
@@ -93,13 +77,52 @@
                                 
                                 <tbody>
                                     <tr>
-                                        <td><?php echo $row['product_bee_name']; ?></td>
-                                        <td><?php echo $row['total_quantity'] . ' ' . $row['unit']; ?></td>                                        
-                                        <td><?php echo $row['bee_name']; ?></td>
-                                        <td><?php echo $row['bee_food']; ?></td>
-                                        <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#beeModal<?php echo $row['bee_id']; ?>">รายละเอียด</button></td>
+                                        <td><?php echo $row['product_bee_name']; ?>
+                                        <?php if ($row['product_bee_name'] == 'น้ำผึ้ง') { ?>
+                                            <div>
+                                                <small class="text-muted"><?php echo $row['bee_name']; ?></small> ,
+                                                <small class="text-muted"><?php echo $row['bee_food']; ?></small>
+                                            </div>
+                                        <?php } ?>
+                                    </td>
+                                        <td><?php echo $row['total_quantity']; ?></td>
+                                        <td><?php echo $row['unit']; ?></td>                                                                             
+                                        <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#probeeModal<?php echo $row['product_bee_id']; ?>">รายละเอียด</button></td>
                                     </tr>
                                 </tbody>
+                                <!-- Modal -->
+                                <div class="modal fade" id="probeeModal<?php echo $row['product_bee_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">รายละเอียก<?php echo $row['product_bee_name']; ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>รหัสลังผึ้ง : </strong> <?php echo $row['product_bee_id']; ?></p>
+                                                <p><strong>วันที่เก็บผลผลิต : </strong> <?php echo $row['date']; ?></p>
+                                                <p><strong>ผลผลิต : </strong> 
+                                                    <?php
+                                                        $sql_product = "SELECT product_bee.product_bee_name, beekeep_detail.quantity, beekeep_detail.unit 
+                                                        FROM beekeep_detail 
+                                                        INNER JOIN product_bee ON beekeep_detail.product_bee_id = product_bee.product_bee_id 
+                                                        WHERE beekeep_detail.bee_id = '" . $row['bee_id'] . "'";
+                                                        $result_product = mysqli_query($conn, $sql_product);
+                                                        if ($result_product && mysqli_num_rows($result_product) > 0) {
+                                                            $products = array();
+                                                            while ($row_product = mysqli_fetch_assoc($result_product)) {
+                                                                $products[] = '<li>' . htmlspecialchars($row_product['product_bee_name'] . ' ' . $row_product['quantity'] . ' ' . $row_product['unit']) . '</li>';
+                                                            }
+                                                            echo '<ul>' . implode('', $products) . '</ul>';
+                                                        } else {
+                                                            echo "ไม่มีข้อมูลผลผลิต";
+                                                        }
+                                                    ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <?php
                                     }
                                 ?>

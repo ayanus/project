@@ -34,35 +34,47 @@
                         <a2>แก้ไขข้อมูลวัตถุดิบ</a2>
                     </div>
 
-                    <div class="content">
-                        <form action="update_mat.php" method="post">
-                            <input type="hidden" name="material_id" value="<?= isset($row['material_id']) ? $row['material_id'] : '' ?>">
+                        <div class="row g-4">
+                            <div class="col-md-8 col-sm-12">
+                                <form action="update.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="material_id" value="<?= isset($row['material_id']) ? $row['material_id'] : '' ?>">
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-sm-2">
+                                            <label class="form-label">ชื่อสินค้า</label>
+                                            <input type="text" class="form-control" name="material_name" value="<?= isset($row['material_name']) ? $row['material_name'] : '' ?>">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <label class="form-label">ประเภท</label>
+                                            <select class="form-select" aria-label="Default select example" id="type" name="type_id">
+                                                <?php
+                                                $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
+                                                $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
+                                                while($typerow=mysqli_fetch_array($hand)){
+                                                ?>
+                                                <option value="<?=$typerow['type_id']?>"><?=$typerow['type_name']?></option>
+                                                <?php 
+                                                    } 
+                                                ?>
+                                            </select>                                    
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="form-label">รายละเอียด</label>
+                                            <textarea class="form-control" name="material_detail" rows="2"><?= isset($row['material_detail']) ? $row['material_detail'] : '' ?></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary" name="1" type="submit">อัปเดต</button>
+                                    <a href="../../materials/show_mat.php"><button class="btn btn-secondary" type="button">ยกเลิก</button></a>
+                                    <hr class="my-4">
+                                </form>
+                            </div>
+                        </div>
+
+
+
                             
-                            <label for="name" class="form-label">ชื่อสินค้า</label>
-                                <input type="text" class="form-control" id="name" name="material_name" value="<?= isset($row['material_name']) ? $row['material_name'] : '' ?>">
-                            
-                            <label for="type" class="form-label mt-4">ประเภทสินค้า</label>
-                                <select class="form-select" aria-label="Default select example" id="type" name="material_type">
-                                    <?php
-                                    $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
-                                    $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
-                                    while($row=mysqli_fetch_array($hand)){
-                                    ?>
-                                    <option value="<?=$row['type_id']?>"><?=$row['type_name']?></option>
-                                    <?php 
-                                        } 
-                                        mysqli_close($conn)
-                                    ?>
-                                </select>
-
-                            <label for="Quantity" class="form-label mt-4">จำนวนคงเหลือ</label>
-                                <input type="text" class="form-control" id="quantity" name="quantity" value="<?= isset($row['quantity']) ? $row['quantity'] : '' ?>">
-
-                            <label for="unit" class="form-label mt-4">หน่วย</label>
-                                <input type="text" class="form-control" id="unit" name="material_unit" value="<?= isset($row['material_unit']) ? $row['material_unit'] : '' ?>">
-
-                                <input type="submit" name="1" class="btn btn-primary mt-4" value="อัปเดต">
-                                <a href="../../materials/show_mat.php" class="btn btn-secondary mt-4">ยกเลิก</a>          
                         </form>
                     </div>
                 </div>

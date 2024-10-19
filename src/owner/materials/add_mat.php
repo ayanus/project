@@ -64,7 +64,7 @@
                                     </div>
 
                                     <button class="btn btn-primary" type="submit">บันทึก</button>
-                                    <button class="btn btn-danger" type="reset">ยกเลิก</button>
+                                    <a href="show_mat.php"><button class="btn btn-danger" type="button">ยกเลิก</button></a>
                                     <hr class="my-4">
                                 </form>
                             </div>
