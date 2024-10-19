@@ -19,31 +19,6 @@
         <div class="top">
             <?php include '../../../public/php/topbar.php'; ?>
         </div>
-        <?php
-        // ดึงข้อมูลสินค้าผลิตภัณฑ์จากฐานข้อมูล
-        $products_sql = "SELECT product_id, product_name FROM products";
-        $products_result = $conn->query($products_sql);
-
-        // ดึงข้อมูลผลผลิตผึ้งจากฐานข้อมูล
-        $products_bee_sql = "SELECT product_bee_id, product_bee_name FROM product_bee";
-        $products_bee_result = $conn->query($products_bee_sql);
-
-        // ดึงข้อมูลประเภทผึ้งจากฐานข้อมูล
-        $type_bees_sql = "SELECT type_bee_id, bee_name FROM type_bee";
-        $type_bees_result = $conn->query($type_bees_sql);
-
-        // ดึงข้อมูลอาหารผึ้งจากฐานข้อมูล
-        $beefoods_sql = "SELECT food_id, food_name FROM beefood";
-        $beefoods_result = $conn->query($beefoods_sql);
-
-        // ดึงข้อมูลอุปกรณ์บรรจุจากฐานข้อมูล
-        $materials_sql = "SELECT material_id, material_name FROM materials";
-        $materials_result = $conn->query($materials_sql);
-
-        // ดึงข้อมูลพนักงานจากฐานข้อมูล
-        $employee_sql = "SELECT employee_id, employee_name FROM employee";
-        $employee_result = $conn->query($employee_sql);
-        ?>           
             <div class="main">
                 <div class="container">
                     <div class="header">ผลิตสินค้า</div>
@@ -55,7 +30,7 @@
                                     <?php unset($_SESSION['message']); ?>
                                 <?php endif; ?>
 
-                    <div class="card">
+                        <div class="card">
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs">
                                 <li class="nav-item">
@@ -68,10 +43,45 @@
                             </div>
 
                             <div class="card-body">
-                        
+                                <table class="table mt-4">
+                                    <thead class="table-dark">
+                                    <tr>
+                                        <th>วันที่ผลิตสินค้า</th>
+                                        <th>รายการ</th>
+                                        <th>จำนวน</th>
+                                        <th>ผู้คุมการผลิต</th>
+                                    </tr>
+                                    </thead>
+                                    
+                                    <?php
+                                        $sql = "SELECT production.production_id, production.production_date, products.product_name , products.product_id , productiondetail.quantity , productiondetail.production_id, production.employee_id, employee.employee_id, employee.employee_name
+                                        FROM production 
+                                        JOIN productiondetail ON production.production_id = productiondetail.production_id
+                                        JOIN products ON products.product_id = productiondetail.product_id
+                                        JOIN employee ON production.employee_id = employee.employee_id";
+                                        $result = mysqli_query($conn, $sql);
+                                    if ($result) { // ตรวจสอบว่าคำสั่ง SQL สำเร็จหรือไม่
+    echo "<tbody>";
+    while($row = mysqli_fetch_array($result)){ 
+        ?>
+        <tr>
+            <td><?php echo $row['production_date']; ?></td>
+            <td><?php echo $row['product_name']; ?></td>
+            <td><?php echo $row['quantity']; ?></td>
+            <td><?php echo $row['employee_name']; ?></td> <!-- เปลี่ยนจาก 'employee' เป็น 'employee_name' -->
+        </tr>
+        <?php
+    }
+    echo "</tbody>";
+} else {
+    echo "Error: " . mysqli_error($conn); // แสดงข้อผิดพลาดถ้ามี
+}
+?>
+
+                                </table>
                             </div>
                         </div>
-                            </div>
+                    </div>
                 </div>
             </div>
     </div>

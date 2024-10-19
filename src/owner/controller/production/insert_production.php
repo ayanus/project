@@ -49,7 +49,7 @@
                 $result_bee_stock = $stmt_bee_stock->get_result();
 
                 while ($total_quantity_needed > 0 && $bee_stock = $result_bee_stock->fetch_assoc()) {
-                    $bee_keep_detail_id = $bee_stock['b_keep_dt_id'];
+                    $b_keep_dt_id = $bee_stock['b_keep_dt_id'];
                     $bee_stock_quantity = $bee_stock['quantity'];
 
                     if ($bee_stock_quantity <= $total_quantity_needed) {
