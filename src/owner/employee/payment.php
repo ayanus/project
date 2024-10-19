@@ -28,61 +28,77 @@
             <div class="main">
                 <div class="container">    
                     <div class="header"><a href="show_em.php"><ion-icon name="chevron-back-outline"></ion-icon></a>เงินเดือนพนักงาน</div>
-                    <div class="row g-4">
-                        <div class="col-md-8 col-sm-12">
-                            <form action="../controller/suppliers/insert_payment.php" method="post" enctype="multipart/form-data">
-                                <div class="row g-3 mb-2">
-                                    <h4>ข้อมูลพนักงาน</h4>
-                                    <div class="col-sm-2">
-                                        <label class="form-label">รหัสพนักงาน</label>
-                                        <input type="text" class="form-control" name="employee_id" value="<?= isset($row['employee_id']) ? $row['employee_id'] : '' ?>" readonly>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="form-label">ชื่อ - สกุล</label>
-                                        <input type="text" class="form-control" name="employee_name" value="<?= isset($row['employee_name']) ? $row['employee_name'] : '' ?>" readonly>
-                                    </div>
 
-                                    <div class="col-sm-4">
-                                        <label class="form-label">แผนก</label>
-                                        <input type="text" class="form-control" name="department_name" value="<?= isset($row['department_name']) ? $row['department_name'] : '' ?>" readonly>
-                                    </div>
-                                    <hr>
-                                    
-                                    <h4>ข้อมูลธนาคาร</h4>
-                                    <div class="col-sm-4">
-                                        <label class="form-label">ชื่อบัญชี</label>
-                                        <input type="text" class="form-control" name="account_name" value="<?= isset($row['account_name']) ? $row['account_name'] : '' ?>" readonly>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label class="form-label">ชื่อธนาคาร</label>
-                                        <input type="text" class="form-control" name="bank" value="<?= isset($row['bank']) ? $row['bank'] : '' ?>" readonly>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label class="form-label">เลขที่บัญชี</label>
-                                        <input type="text" class="form-control" name="account_num" value="<?= isset($row['account_num']) ? $row['account_num'] : '' ?>" readonly>
-                                    </div>
-                                    <hr>
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="true" href="payment.php">จ่ายเงินเดือนพนักงาน</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="true" href="show_payment.php">ประวัติการจ่ายเงินเดือน</a>
+                                </li>
+                                </ul>
+                            </div>
 
-                                    <h4>รายละเอียดการจ่ายเงินเดือน</h4>
-                                    <div class="col-sm-4">
-                                        <label class="form-label">วันที่จ่ายเงิน</label>
-                                        <input type="date" class="form-control" name="date" required>
-                                    </div>
+                            <div class="card-body">
+                                <div class="row g-4">
+                                    <div class="col-md-8 col-sm-12">
+                                        <form action="../controller/employee/insert_payment.php" method="post" enctype="multipart/form-data">
+                                            <div class="row g-3 mb-2">
+                                                <h5>ข้อมูลพนักงาน</h5>
+                                                <div class="col-sm-2">
+                                                    <label class="form-label">รหัสพนักงาน</label>
+                                                    <input type="text" class="form-control" name="employee_id" value="<?= isset($row['employee_id']) ? $row['employee_id'] : '' ?>" readonly>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label">ชื่อ - สกุล</label>
+                                                    <input type="text" class="form-control" name="employee_name" value="<?= isset($row['employee_name']) ? $row['employee_name'] : '' ?>" readonly>
+                                                </div>
 
-                                    <div class="col-sm-3">
-                                        <label for="form-label" class="form-label">จำนวนเงินเดือน</label>
-                                        <input type="number" step="0.1" class="form-control" name="salary" value="<?= isset($row['salary']) ? $row['salary'] : '' ?>" readonly>
-                                    </div>
+                                                <div class="col-sm-4">
+                                                    <label class="form-label">แผนก</label>
+                                                    <input type="text" class="form-control" name="department_name" value="<?= isset($row['department_name']) ? $row['department_name'] : '' ?>" readonly>
+                                                </div>
+                                                <hr>
+                                                
+                                                <h5>ข้อมูลธนาคาร</h5>
+                                                <div class="col-sm-4">
+                                                    <label class="form-label">ชื่อบัญชี</label>
+                                                    <input type="text" class="form-control" name="account_name" value="<?= isset($row['account_name']) ? $row['account_name'] : '' ?>" readonly>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label class="form-label">ชื่อธนาคาร</label>
+                                                    <input type="text" class="form-control" name="bank" value="<?= isset($row['bank']) ? $row['bank'] : '' ?>" readonly>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label class="form-label">เลขที่บัญชี</label>
+                                                    <input type="text" class="form-control" name="account_num" value="<?= isset($row['account_num']) ? $row['account_num'] : '' ?>" readonly>
+                                                </div>
+                                                <hr>
 
-                                    <div class="col-sm-5">
-                                        <label for="formFile" class="form-label">แนบหลักฐานการจ่าย</label>
-                                        <input type="file" class="form-control" name="slip" accept="image/png, image/jpg,image/jpeg" required>
+                                                <h5>รายละเอียดการจ่ายเงินเดือน</h5>
+                                                <div class="col-sm-4">
+                                                    <label class="form-label">วันที่จ่ายเงิน</label>
+                                                    <input type="date" class="form-control" name="date" required>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <label for="form-label" class="form-label">จำนวนเงินเดือน</label>
+                                                    <input type="number" step="0.1" class="form-control" name="salary" value="<?= isset($row['salary']) ? $row['salary'] : '' ?>" readonly>
+                                                </div>
+
+                                                <div class="col-sm-5">
+                                                    <label for="formFile" class="form-label">แนบหลักฐานการจ่าย</label>
+                                                    <input type="file" class="form-control" name="slip" accept="image/png, image/jpg,image/jpeg" required>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" type="submit">บันทึกการจ่าย</button></a>
+                                        </form>
                                     </div>
                                 </div>
-                                <a href=""></a><button class="btn btn-primary" type="submit">บันทึกการจ่าย</button></a>
-                            </form>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
     </div>
