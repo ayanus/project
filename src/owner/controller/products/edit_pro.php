@@ -36,32 +36,54 @@
 
                         <div class="row g-4">
                             <div class="col-md-8 col-sm-12">
-                                <form action="update.php" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="material_id" value="<?= isset($row['material_id']) ? $row['material_id'] : '' ?>">
+                                <form action="update_pro.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="product_id" value="<?= isset($row['product_id']) ? $row['product_id'] : '' ?>">
                                     <div class="row g-3 mb-3">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-5">
+                                            <label class="form-label">รูปภาพ</label>
+                                            <input type="file" class="form-control" name="picture" id="pictureInput">
+                                            
+                                            <?php if (isset($row['picture']) && !empty($row['picture'])): ?>
+                                                <!-- แสดงรูปภาพที่เคยอัปโหลดไว้ -->
+                                                <div class="mt-2">
+                                                    <p>รูปภาพที่เคยอัปโหลด:</p>
+                                                    <img id="uploadedImage" src="/project/uploads/<?= htmlspecialchars($row['picture']); ?>" alt="Uploaded Image" style="max-width: 50%; height: auto;">
+                                                </div>
+                                            <?php else: ?>
+                                                <!-- กรณีที่ไม่มีรูปภาพเดิม -->
+                                                <div class="mt-2">
+                                                    <p>ยังไม่มีการอัปโหลดรูปภาพ</p>
+                                                    <img id="uploadedImage" src="#" alt="No Image" style="max-width: 100%; height: auto; display: none;">
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <script>
+                                            // JavaScript เพื่อแสดงตัวอย่างรูปภาพใหม่ที่เลือก
+                                            document.getElementById('pictureInput').addEventListener('change', function(event) {
+                                                var file = event.target.files[0]; // ได้ไฟล์ที่ถูกเลือกจาก input
+                                                if (file) {
+                                                    var reader = new FileReader(); // สร้าง FileReader เพื่ออ่านไฟล์
+                                                    
+                                                    reader.onload = function(e) {
+                                                        var img = document.getElementById('uploadedImage');
+                                                        img.src = e.target.result; // กำหนด src ของรูปภาพให้เป็นผลลัพธ์ที่อ่านได้
+                                                        img.style.display = 'block'; // ทำให้รูปภาพปรากฏ
+                                                    }
+
+                                                    reader.readAsDataURL(file); // อ่านไฟล์เป็น Data URL
+                                                }
+                                            });
+                                        </script>
+
+                                        <div class="col-sm-5">
                                             <label class="form-label">ชื่อสินค้า</label>
-                                            <input type="text" class="form-control" name="material_name" value="<?= isset($row['material_name']) ? $row['material_name'] : '' ?>">
+                                            <input type="text" class="form-control" name="product_name" value="<?= isset($row['product_name']) ? $row['product_name'] : '' ?>">
                                         </div>
 
                                         <div class="col-sm-3">
-                                            <label class="form-label">ประเภท</label>
-                                            <select class="form-select" aria-label="Default select example" id="type" name="type_id">
-                                                <?php
-                                                $sql="SELECT * FROM Type_Mat ORDER BY type_name ";
-                                                $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
-                                                while($typerow=mysqli_fetch_array($hand)){
-                                                ?>
-                                                <option value="<?=$typerow['type_id']?>"><?=$typerow['type_name']?></option>
-                                                <?php 
-                                                    } 
-                                                ?>
-                                            </select>                                    
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <label class="form-label">รายละเอียด</label>
-                                            <textarea class="form-control" name="material_detail" rows="2"><?= isset($row['material_detail']) ? $row['material_detail'] : '' ?></textarea>
+                                            <label class="form-label">ราคา</label>
+                                            <input type="text" class="form-control" name="price" rows="2" value="<?= isset($row['price']) ? $row['price'] : '' ?>">
                                         </div>
                                     </div>
 
