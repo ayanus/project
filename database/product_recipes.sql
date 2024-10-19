@@ -25,3 +25,10 @@ VALUES (5, 66, 1, 150, 'มิลลิลิตร'),
        (7, 66, 1, 150, 'มิลลิลิตร'),
        (8, 66, 1, 150, 'มิลลิลิตร');
 
+CREATE TABLE recipe (
+    recipe_id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    product_bee_id INT(10) NOT NULL,
+    amount_per_unit DECIMAL(10, 2) NOT NULL,
+    unit VARCHAR(50) NOT NULL,
+    FOREIGN KEY (product_bee_id) REFERENCES product_bee(product_bee_id)
+);

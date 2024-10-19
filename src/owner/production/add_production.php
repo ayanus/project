@@ -71,17 +71,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="true" href="add_production.php">เพิ่มสินค้าที่ต้องการผลิต</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="show_cart_production.php">สินค้าที่จะผลิต (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></a>
-                                </li>
                                 </ul>
                             </div>
 
                             <div class="card-body">
                         <div class="row g-4">
                             <div class="col-md-8 col-sm-12">
-                                <!-- <form action="../controller/production/insert_production.php" method="post" enctype="multipart/form-data"> -->
-                                <form action="cart_production.php" method="post">
+                                <form action="../controller/production/insert_production.php" method="post" enctype="multipart/form-data">
                                     <div class="row g-3 mb-3">
                                         <div class="col-sm-12">
                                             <label for="product_id" class="form-label">สินค้าที่ต้องการผลิต</label>
@@ -151,8 +147,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!-- <a href="cart_production.php?product_id=<?php echo $product['product_id']?>" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</a> -->
-                                    <button type="submit" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</button>
+                                    <button type="submit" class="btn btn-primary">ผลิตสินค้า</button>
                                     <hr class="my-4">
                                 </form>
                             </div>

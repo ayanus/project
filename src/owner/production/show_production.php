@@ -64,9 +64,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" aria-current="true" href="add_production.php">เพิ่มสินค้าที่ต้องการผลิต</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="cart_production.php">สินค้าที่จะผลิต (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></a>
-                                </li>
                                 </ul>
                             </div>
 
