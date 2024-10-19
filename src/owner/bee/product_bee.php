@@ -87,37 +87,55 @@
                                     </td>
                                         <td><?php echo $row['total_quantity']; ?></td>
                                         <td><?php echo $row['unit']; ?></td>                                                                             
-                                        <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#probeeModal<?php echo $row['product_bee_id']; ?>">รายละเอียด</button></td>
-                                    </tr>
-                                </tbody>
-                                <!-- Modal -->
-                                <div class="modal fade" id="probeeModal<?php echo $row['product_bee_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">รายละเอียก<?php echo $row['product_bee_name']; ?></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><strong>รหัสลังผึ้ง : </strong> <?php echo $row['product_bee_id']; ?></p>
-                                                <p><strong>วันที่เก็บผลผลิต : </strong> <?php echo $row['date']; ?></p>
-                                                <p><strong>ผลผลิต : </strong> 
-                                                    <?php
-                                                        $sql_product = "SELECT product_bee.product_bee_name, beekeep_detail.quantity, beekeep_detail.unit 
-                                                        FROM beekeep_detail 
-                                                        INNER JOIN product_bee ON beekeep_detail.product_bee_id = product_bee.product_bee_id 
-                                                        WHERE beekeep_detail.bee_id = '" . $row['bee_id'] . "'";
-                                                        $result_product = mysqli_query($conn, $sql_product);
-                                                        if ($result_product && mysqli_num_rows($result_product) > 0) {
-                                                            $products = array();
-                                                            while ($row_product = mysqli_fetch_assoc($result_product)) {
-                                                                $products[] = '<li>' . htmlspecialchars($row_product['product_bee_name'] . ' ' . $row_product['quantity'] . ' ' . $row_product['unit']) . '</li>';
-                                                            }
-                                                            echo '<ul>' . implode('', $products) . '</ul>';
-                                                        } else {
-                                                            echo "ไม่มีข้อมูลผลผลิต";
-                                                        }
-                                                    ?>
+                                        <!-- <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#probeeModal<?php echo $row['product_bee_id']; ?>">รายละเอียด</button></td> -->
+                                        <!-- ปุ่มเปิด Modal ที่ส่งค่า bee_id และ product_bee_id -->
+<td>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#viewDetailsModal" 
+        data-bee-id="<?php echo $row['bee_id']; ?>" 
+        data-product-id="<?php echo $row['product_bee_id']; ?>" class="btn btn-primary">
+        รายละเอียด
+    </a>
+</td>
+
+<!-- Modal -->
+<div class="modal fade" id="viewDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ตำแหน่งที่ข้อมูลจาก AJAX จะถูกแสดง -->
+                <p>กำลังโหลดข้อมูล...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var viewDetailsModal = document.getElementById('viewDetailsModal');
+    viewDetailsModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // ปุ่มที่ถูกกด
+        var beeId = button.getAttribute('data-bee-id'); // ดึงค่า bee_id
+        var productId = button.getAttribute('data-product-id'); // ดึงค่า product_bee_id
+
+        var modalBody = viewDetailsModal.querySelector('.modal-body');
+
+        // ทำการส่งค่า bee_id และ product_bee_id ไปยัง PHP ผ่าน AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "../controller/bee/fetch_data.php?bee_id=" + beeId + "&product_id=" + productId, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                modalBody.innerHTML = xhr.responseText; // แสดงข้อมูลที่ดึงมาใน modal
+            } else if (xhr.readyState == 4) {
+                modalBody.innerHTML = "ไม่พบข้อมูล";
+            }
+        };
+        xhr.send();
+    });
+</script>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

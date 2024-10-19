@@ -25,15 +25,13 @@
                     <div class="header">สินค้า</div>
                         <a href="add_pro.php"><button type="button" class="btn btn-success">Add+</button></a>
 
-                    <div class="content">
                         <table class="table mt-4">
                             <thead class="table-dark">
                             <tr>
-                                <th>Name</th>
-                                <th>picture</th>
-                                <th>price</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th>รูปภาพ</th>
+                                <th>รายการสินค้า</th>
+                                <th>ราคา</th>
+                                <th> </th>
                             </tr>
                             </thead>
                             
@@ -45,11 +43,11 @@
 
                             <tbody>
                             <tr>
-                                <td><?php echo $row['product_name']; ?></td>
                                 <td><img src="/project/uploads/<?php echo htmlspecialchars($row['picture']); ?>" alt="Product Picture" style="height:100px;"></td>
+                                <td><?php echo $row['product_name']; ?></td>
                                 <td><?php echo $row['price']; ?></td>
-                                <td><a href="../controller/products/edit_pro.php?product_id=<?=$row['product_id']?>" class="btn btn-warning">Edit</a></td>
-                                <td><a href="../controller/products/delete_pro.php?product_id=<?=$row['product_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
+                                <td><a href="../controller/products/edit_pro.php?product_id=<?=$row['product_id']?>" class="btn btn-warning">Edit</a>
+                                <a href="../controller/products/delete_pro.php?product_id=<?=$row['product_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                             </tr>
                             </tbody>
                             
