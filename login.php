@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // ตรวจสอบ role และนำทางไปยังหน้า home ที่เหมาะสม
             switch ($row['role']) {
                 case 'owner':
-                    header("Location: src/owner/owner_home.php");
+                    header("Location: src/owner/bee/show_bee.php");
                     break;
                 case 'employee':
                     header("Location: src/employee/employee_home.php");

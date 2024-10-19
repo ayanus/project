@@ -22,13 +22,6 @@
             <div class="main">
                 <div class="container">
                     <div class="header">ผลิตสินค้า</div>
-                    <?php if(!empty($_SESSION['message'])): ?>
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <?php echo $_SESSION['message']; ?>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                    <?php unset($_SESSION['message']); ?>
-                                <?php endif; ?>
 
                         <div class="card">
                             <div class="card-header">
@@ -61,22 +54,22 @@
                                         JOIN employee ON production.employee_id = employee.employee_id";
                                         $result = mysqli_query($conn, $sql);
                                     if ($result) { // ตรวจสอบว่าคำสั่ง SQL สำเร็จหรือไม่
-    echo "<tbody>";
-    while($row = mysqli_fetch_array($result)){ 
-        ?>
-        <tr>
-            <td><?php echo $row['production_date']; ?></td>
-            <td><?php echo $row['product_name']; ?></td>
-            <td><?php echo $row['quantity']; ?></td>
-            <td><?php echo $row['employee_name']; ?></td> <!-- เปลี่ยนจาก 'employee' เป็น 'employee_name' -->
-        </tr>
-        <?php
-    }
-    echo "</tbody>";
-} else {
-    echo "Error: " . mysqli_error($conn); // แสดงข้อผิดพลาดถ้ามี
-}
-?>
+                                        echo "<tbody>";
+                                        while($row = mysqli_fetch_array($result)){ 
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $row['production_date']; ?></td>
+                                                <td><?php echo $row['product_name']; ?></td>
+                                                <td><?php echo $row['quantity']; ?></td>
+                                                <td><?php echo $row['employee_name']; ?></td> <!-- เปลี่ยนจาก 'employee' เป็น 'employee_name' -->
+                                            </tr>
+                                            <?php
+                                        }
+                                        echo "</tbody>";
+                                    } else {
+                                        echo "Error: " . mysqli_error($conn); // แสดงข้อผิดพลาดถ้ามี
+                                    }
+                                    ?>
 
                                 </table>
                             </div>

@@ -30,6 +30,7 @@
                             <tr>
                                 <th>รูปภาพ</th>
                                 <th>รายการสินค้า</th>
+                                <th>จำนวนในคลัง</th>
                                 <th>ราคา</th>
                                 <th> </th>
                             </tr>
@@ -45,7 +46,12 @@
                             <tr>
                                 <td><img src="/project/uploads/<?php echo htmlspecialchars($row['picture']); ?>" alt="Product Picture" style="height:100px;"></td>
                                 <td><?php echo $row['product_name']; ?></td>
-                                <td><?php echo $row['price']; ?></td>
+                                <td><?php echo $row['quantity']; ?>
+                                    <div>
+                                        <small class="text-muted">แพ็ค</small>
+                                    </div>
+                                </td>
+                                <td><?php echo $row['price']; ?></td> 
                                 <td><a href="../controller/products/edit_pro.php?product_id=<?=$row['product_id']?>" class="btn btn-warning">Edit</a>
                                 <a href="../controller/products/delete_pro.php?product_id=<?=$row['product_id']?>" class="btn btn-danger" onclick="Del(this.href);return false;">Delete</a></td>
                             </tr>
