@@ -80,7 +80,8 @@
                             <div class="card-body">
                         <div class="row g-4">
                             <div class="col-md-8 col-sm-12">
-                                <form action="../controller/production/insert_production.php" method="post" enctype="multipart/form-data">
+                                <!-- <form action="../controller/production/insert_production.php" method="post" enctype="multipart/form-data"> -->
+                                <form action="cart_production.php" method="post">
                                     <div class="row g-3 mb-3">
                                         <div class="col-sm-12">
                                             <label for="product_id" class="form-label">สินค้าที่ต้องการผลิต</label>
@@ -150,7 +151,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <a href="cart_production.php?product_id=<?php echo $product['product_id']?>" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</a>
+                                    <!-- <a href="cart_production.php?product_id=<?php echo $product['product_id']?>" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</a> -->
+                                    <button type="submit" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</button>
                                     <hr class="my-4">
                                 </form>
                             </div>
