@@ -19,11 +19,62 @@
         <div class="top">
             <?php include '../../../public/php/topbar.php'; ?>
         </div>
-                       
+        <?php
+        // ดึงข้อมูลสินค้าผลิตภัณฑ์จากฐานข้อมูล
+        $products_sql = "SELECT product_id, product_name FROM products";
+        $products_result = $conn->query($products_sql);
+
+        // ดึงข้อมูลผลผลิตผึ้งจากฐานข้อมูล
+        $products_bee_sql = "SELECT product_bee_id, product_bee_name FROM product_bee";
+        $products_bee_result = $conn->query($products_bee_sql);
+
+        // ดึงข้อมูลประเภทผึ้งจากฐานข้อมูล
+        $type_bees_sql = "SELECT type_bee_id, bee_name FROM type_bee";
+        $type_bees_result = $conn->query($type_bees_sql);
+
+        // ดึงข้อมูลอาหารผึ้งจากฐานข้อมูล
+        $beefoods_sql = "SELECT food_id, food_name FROM beefood";
+        $beefoods_result = $conn->query($beefoods_sql);
+
+        // ดึงข้อมูลอุปกรณ์บรรจุจากฐานข้อมูล
+        $materials_sql = "SELECT material_id, material_name FROM materials";
+        $materials_result = $conn->query($materials_sql);
+
+        // ดึงข้อมูลพนักงานจากฐานข้อมูล
+        $employee_sql = "SELECT employee_id, employee_name FROM employee";
+        $employee_result = $conn->query($employee_sql);
+        ?>           
             <div class="main">
                 <div class="container">
                     <div class="header">ผลิตสินค้า</div>
+                    <?php if(!empty($_SESSION['message'])): ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <?php echo $_SESSION['message']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <?php unset($_SESSION['message']); ?>
+                                <?php endif; ?>
 
+                    <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="true" href="show_production.php">ประวัติการผลิตสินค้า</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="true" href="add_production.php">เพิ่มสินค้าที่ต้องการผลิต</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="cart_production.php">สินค้าที่จะผลิต (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></a>
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                        
+                            </div>
+                        </div>
+                            </div>
                 </div>
             </div>
     </div>
