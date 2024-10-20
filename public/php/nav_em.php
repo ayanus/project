@@ -7,19 +7,19 @@
         </li>
 
         <li>
-            <a href="#">
+            <a href="/project/src/employee/bee/show_bee.php">
                 <span class="title">ข้อมูลผึ้ง</span>
             </a>
         </li>
 
         <li>
-            <a href="/project/src/owner/materials/show_mat.php">
+            <a href="/project/src/employee/materials/show_mat.php">
                 <span class="title">อุปกรณ์และวัตถุดิบ</span>
             </a>
         </li>
 
         <li>
-            <a href="#">
+            <a href="/project/src/employee/production/show_production.php">
                 <span class="title">การผลิต</span>
             </a>
         </li>
