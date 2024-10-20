@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: src/owner/bee/show_bee.php");
                     break;
                 case 'employee':
-                    header("Location: src/employee/employee_home.php");
+                    header("Location: src/employee/employee/show_em.php");
                     break;
                 default:
                     header("Location: login.php");
