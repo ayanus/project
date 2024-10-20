@@ -63,10 +63,10 @@
                         <div class="card-header">
                             <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="true" href="bee.php">ข้อมูลผึ้ง</a>
+                                <a class="nav-link active" aria-current="true" href="bee.php">ข้อมูลผึ้ง</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="true" href="show_bee.php">ข้อมูลผลผลิตจากผึ้ง</a>
+                                <a class="nav-link" aria-current="true" href="show_bee.php">ข้อมูลผลผลิตจากผึ้ง</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="true" href="product_bee.php">ผลผลิตจากผึ้ง</a>
@@ -77,12 +77,10 @@
                             <table class="table">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>วันที่เก็บผลผลิต</th>
                                         <th>รหัสลังผึ้ง</th>
                                         <th>สายพันธุ์ผึ้ง</th>
                                         <th>อาหารที่ใช้เลี้ยง</th>
-                                        <th>รายละเอียด</th>
-                                        <th>ผลผลิต</th>
+                                        <th>สถานที่เลี้ยง</th>
                                         <th> </th>
                                     </tr>
                                 </thead>
@@ -90,16 +88,7 @@
                                 <?php
                             
 
-                                    $sql = "SELECT bee.bee_id, bee.bee_name, bee.bee_food, bee.bee_detail, beekeep_detail.date
-                                    FROM bee 
-                                    INNER JOIN type_bee ON bee.bee_name = type_bee.bee_name 
-                                    INNER JOIN beekeep_detail ON bee.bee_id = beekeep_detail.bee_id 
-                                    LEFT JOIN beefood ON beefood.food_name = bee.bee_food 
-                                    GROUP BY bee.bee_id, beekeep_detail.date, bee.bee_food
-                                    ORDER BY type_bee.bee_name, beekeep_detail.date ASC";
-
-                                    // เพิ่มการเรียงลำดับตามสายพันธุ์ผึ้ง
-                                    // $sql .= "GROUP BY bee.bee_name, bee.bee_food ORDER BY type_bee.bee_name";
+                                    $sql = "SELECT * FROM bee";
 
                                     $result = mysqli_query($conn, $sql);
 
@@ -117,55 +106,12 @@
                                 
                                 <tbody>
                                     <tr>
-                                        <td><?php echo $row['date']; ?></td>
                                         <td><?php echo $row['bee_id']; ?></td>
                                         <td><?php echo $row['bee_name']; ?></td>
                                         <td><?php echo $row['bee_food']; ?></td>
                                         <td><?php echo $row['bee_detail']; ?></td>
-                                        <td>
-    <button class="btn btn-primary" 
-            data-bs-toggle="modal" 
-            data-bs-target="#beeModal<?php echo $row['bee_id']; ?>_<?php echo $row['date']; ?>" 
-            data-date="<?php echo $row['date']; ?>">รายละเอียด</button>
-</td>
-</tr>
-</tbody>
-
-<!-- Modal -->
-<div class="modal fade" id="beeModal<?php echo $row['bee_id']; ?>_<?php echo $row['date']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ผลผลิตจากลังผึ้งรหัส <?php echo $row['bee_id']; ?> - วันที่ <?php echo $row['date']; ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>สายพันธุ์ผึ้ง : </strong> <?php echo $row['bee_name']; ?></p>
-                <p><strong>อาหาร : </strong> <?php echo $row['bee_food']; ?></p>
-                <p><strong>วันที่เก็บผลผลิต : </strong> <?php echo $row['date']; ?></p>
-                <p><strong>ผลผลิต : </strong> 
-                    <?php
-                        $sql_product = "SELECT product_bee.product_bee_name, beekeep_detail.quantity, beekeep_detail.unit 
-                                        FROM beekeep_detail 
-                                        INNER JOIN product_bee ON beekeep_detail.product_bee_id = product_bee.product_bee_id 
-                                        WHERE beekeep_detail.bee_id = '" . $row['bee_id'] . "' 
-                                        AND beekeep_detail.date = '" . $row['date'] . "'"; // ตรวจสอบจากทั้ง bee_id และ date
-
-                        $result_product = mysqli_query($conn, $sql_product);
-                        if ($result_product && mysqli_num_rows($result_product) > 0) {
-                            $products = array();
-                            while ($row_product = mysqli_fetch_assoc($result_product)) {
-                                $products[] = '<li>' . htmlspecialchars($row_product['product_bee_name'] . ' ' . $row_product['quantity'] . ' ' . $row_product['unit']) . '</li>';
-                            }
-                            echo '<ul>' . implode('', $products) . '</ul>';
-                        } else {
-                            echo "ไม่มีข้อมูลผลผลิต";
-                        }
-                    ?>
-            </div>
-        </div>
-    </div>
-</div>
+                                    </tr>
+                                </tbody>
 
                                 <?php
                                     }

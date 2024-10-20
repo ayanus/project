@@ -48,7 +48,7 @@
                                 <td><?php echo $row['product_name']; ?></td>
                                 <td><?php echo $row['quantity']; ?>
                                     <div>
-                                        <small class="text-muted">แพ็ค</small>
+                                        <small class="text-muted">ชิ้น</small>
                                     </div>
                                 </td>
                                 <td><?php echo $row['price']; ?></td> 

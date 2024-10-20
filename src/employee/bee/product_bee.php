@@ -28,6 +28,9 @@
                         <div class="card-header">
                             <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
+                                <a class="nav-link " aria-current="true" href="bee.php">ข้อมูลผึ้ง</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" aria-current="true" href="show_bee.php">ข้อมูลผึ้ง</a>
                             </li>
                             <li class="nav-item">
@@ -89,52 +92,52 @@
                                         <td><?php echo $row['unit']; ?></td>                                                                             
                                         <!-- <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#probeeModal<?php echo $row['product_bee_id']; ?>">รายละเอียด</button></td> -->
                                         <!-- ปุ่มเปิด Modal ที่ส่งค่า bee_id และ product_bee_id -->
-<td>
-    <a href="#" data-bs-toggle="modal" data-bs-target="#viewDetailsModal" 
-        data-bee-id="<?php echo $row['bee_id']; ?>" 
-        data-product-id="<?php echo $row['product_bee_id']; ?>" class="btn btn-primary">
-        รายละเอียด
-    </a>
-</td>
+                                                <td>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#viewDetailsModal" 
+                                                        data-bee-id="<?php echo $row['bee_id']; ?>" 
+                                                        data-product-id="<?php echo $row['product_bee_id']; ?>" class="btn btn-primary">
+                                                        รายละเอียด
+                                                    </a>
+                                                </td>
 
-<!-- Modal -->
-<div class="modal fade" id="viewDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- ตำแหน่งที่ข้อมูลจาก AJAX จะถูกแสดง -->
-                <p>กำลังโหลดข้อมูล...</p>
-            </div>
-        </div>
-    </div>
-</div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="viewDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- ตำแหน่งที่ข้อมูลจาก AJAX จะถูกแสดง -->
+                                                                <p>กำลังโหลดข้อมูล...</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-<script>
-    var viewDetailsModal = document.getElementById('viewDetailsModal');
-    viewDetailsModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget; // ปุ่มที่ถูกกด
-        var beeId = button.getAttribute('data-bee-id'); // ดึงค่า bee_id
-        var productId = button.getAttribute('data-product-id'); // ดึงค่า product_bee_id
+                                                <script>
+                                                    var viewDetailsModal = document.getElementById('viewDetailsModal');
+                                                    viewDetailsModal.addEventListener('show.bs.modal', function (event) {
+                                                        var button = event.relatedTarget; // ปุ่มที่ถูกกด
+                                                        var beeId = button.getAttribute('data-bee-id'); // ดึงค่า bee_id
+                                                        var productId = button.getAttribute('data-product-id'); // ดึงค่า product_bee_id
 
-        var modalBody = viewDetailsModal.querySelector('.modal-body');
+                                                        var modalBody = viewDetailsModal.querySelector('.modal-body');
 
-        // ทำการส่งค่า bee_id และ product_bee_id ไปยัง PHP ผ่าน AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "../controller/bee/fetch_data.php?bee_id=" + beeId + "&product_id=" + productId, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                modalBody.innerHTML = xhr.responseText; // แสดงข้อมูลที่ดึงมาใน modal
-            } else if (xhr.readyState == 4) {
-                modalBody.innerHTML = "ไม่พบข้อมูล";
-            }
-        };
-        xhr.send();
-    });
-</script>
+                                                        // ทำการส่งค่า bee_id และ product_bee_id ไปยัง PHP ผ่าน AJAX
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("GET", "../controller/bee/fetch_data.php?bee_id=" + beeId + "&product_id=" + productId, true);
+                                                        xhr.onreadystatechange = function() {
+                                                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                                                modalBody.innerHTML = xhr.responseText; // แสดงข้อมูลที่ดึงมาใน modal
+                                                            } else if (xhr.readyState == 4) {
+                                                                modalBody.innerHTML = "ไม่พบข้อมูล";
+                                                            }
+                                                        };
+                                                        xhr.send();
+                                                    });
+                                                </script>
                                                 </p>
                                             </div>
                                         </div>

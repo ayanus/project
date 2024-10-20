@@ -14,10 +14,10 @@
 </head>
     <body>
     <div class="containerr">
-        <?php include '../../../public/php/nav.php'; ?>
+        <?php include '../../../public/php/nav_em.php'; ?>
 
         <div class="top">
-            <?php include '../../../public/php/topbar.php'; ?>
+            <?php include '../../../public/php/topbar_em.php'; ?>
         </div>
         
             <div class="main">

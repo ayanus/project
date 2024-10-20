@@ -8,12 +8,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $employee_id = $_POST['employee_id'];
 
     // 1 แพ็ค = 12 ขวด
-    $quantity_units = $quantity_packs * 12; // แปลงจำนวนแพ็คเป็นจำนวนขวด
+    $quantity_units = $quantity_packs * 13; // แปลงจำนวนแพ็คเป็นจำนวนขวด
 
     // เริ่มการทำธุรกรรม
     $conn->begin_transaction();
 
     try {
+        // ดึงค่า product_age จากตาราง products เพื่อคำนวณวันหมดอายุ
+        $sql_product_age = "SELECT product_age FROM products WHERE product_id = ?";
+        $stmt_product_age = $conn->prepare($sql_product_age);
+        $stmt_product_age->bind_param("i", $product_id);
+        $stmt_product_age->execute();
+        $result_product_age = $stmt_product_age->get_result();
+        $product_data = $result_product_age->fetch_assoc();
+        $product_age = $product_data['product_age']; // อายุผลิตภัณฑ์ (จำนวนวัน)
+
+        // คำนวณวันหมดอายุ
+        $expire_date = date('Y-m-d', strtotime($production_date . " + $product_age days"));
+
         // เพิ่มข้อมูลการผลิตลงในตาราง production
         $sql_production = "INSERT INTO production (production_date, quantity, employee_id) VALUES (?, ?, ?)";
         $stmt_production = $conn->prepare($sql_production);
@@ -27,6 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_production_detail->bind_param("iii", $production_id, $product_id, $quantity_units);
         $stmt_production_detail->execute();
         $production_detail_id = $conn->insert_id;
+
+        $sql_update_product_expire = "UPDATE products SET expire = ? WHERE product_id = ?";
+        $stmt_update_product_expire = $conn->prepare($sql_update_product_expire);
+        $stmt_update_product_expire->bind_param("si", $expire_date, $product_id);
+        $stmt_update_product_expire->execute();
 
         // ตัดสต๊อกผลผลิตผึ้งตามสูตรการผลิต
         $sql_recipe = "SELECT product_bee_id, amount_per_unit FROM recipe WHERE product_bee_id = ?";
@@ -60,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt_update_bee_stock->execute();
 
                     // บันทึกการใช้ใน mat_use_detail
-                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id, b_keep_dt_id) VALUES (?, ?, ?)";
+                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id, ) VALUES (?, ?, )";
                     $stmt_mat_use_detail = $conn->prepare($sql_mat_use_detail);
-                    $stmt_mat_use_detail->bind_param("iii", $product_bee_id, $production_detail_id, $b_keep_dt_id);
+                    $stmt_mat_use_detail->bind_param("ii", $product_bee_id, $production_detail_id);
                     $stmt_mat_use_detail->execute();
 
                     $total_quantity_needed -= $bee_stock_quantity;
@@ -75,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt_update_bee_stock->execute();
 
                     // บันทึกการใช้ใน mat_use_detail
-                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id, b_keep_dt_id) VALUES (?, ?, ?)";
+                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id) VALUES (?, ?)";
                     $stmt_mat_use_detail = $conn->prepare($sql_mat_use_detail);
-                    $stmt_mat_use_detail->bind_param("iii", $product_bee_id, $production_detail_id, $b_keep_dt_id);
+                    $stmt_mat_use_detail->bind_param("ii", $product_bee_id, $production_detail_id);
                     $stmt_mat_use_detail->execute();
 
                     $total_quantity_needed = 0;
@@ -87,23 +104,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 1. ตัดสต๊อกวัสดุ
         $material_id = $_POST['material_id'];
-        $sql_material_stock = "SELECT stock_quantity FROM materials WHERE material_id = ?";
+        $sql_material_stock = "SELECT stock_quantity , quantity FROM materials WHERE material_id = ?";
         $stmt_material_stock = $conn->prepare($sql_material_stock);
         $stmt_material_stock->bind_param("i", $material_id);
         $stmt_material_stock->execute();
         $result_material_stock = $stmt_material_stock->get_result();
         $material_stock = $result_material_stock->fetch_assoc();
         $material_stock_quantity = $material_stock['stock_quantity'];
+        $material_quantity_ = $material_stock['quantity'];
 
         // คำนวณจำนวนวัสดุที่ต้องใช้ (1 แพ็ค = 12 ขวด)
-        $total_materials_needed = $quantity_packs * 12;
+        $total_materials_needed = $quantity_packs * 14;
+        $total_materials_needed_pack = $quantity_packs * 1;
 
         if ($material_stock_quantity >= $total_materials_needed) {
             // ตัดสต๊อกวัสดุ
             $new_material_quantity = $material_stock_quantity - $total_materials_needed;
-            $sql_update_material_stock = "UPDATE materials SET stock_quantity = ? WHERE material_id = ?";
+            $new_material_quantity_pack = $material_quantity_ - $total_materials_needed_pack;
+            $sql_update_material_stock = "UPDATE materials SET stock_quantity = ? , quantity = ? WHERE material_id = ?";
             $stmt_update_material_stock = $conn->prepare($sql_update_material_stock);
-            $stmt_update_material_stock->bind_param("ii", $new_material_quantity, $material_id);
+            $stmt_update_material_stock->bind_param("iii", $new_material_quantity, $new_material_quantity_pack, $material_id);
             $stmt_update_material_stock->execute();
         } else {
             throw new Exception('วัสดุไม่เพียงพอในการผลิต');
