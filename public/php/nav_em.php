@@ -1,7 +1,7 @@
 <div class="navigation">
     <ul>
         <li>
-            <a href="#">
+            <a href="/project/src/employee/employee/show_em.php">
                 <span class="title">ข้อมูลส่วนตัว</span>
             </a>
         </li>

@@ -1,7 +1,7 @@
 <?php
     include 'C:/xampp/htdocs/project/config/database.php';
+    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +18,27 @@
 
         <div class="top">
             <?php include '../../../public/php/topbar_em.php'; ?>
+        </div>
         
             <div class="main">
                 <div class="container">
+                <div class="header">ข้อมูลพนักงาน</div>
 
+                <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="true" href="show_em.php">ข้อมูลส่วนตัว</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="true" href="show_payment.php">ประวัติการรับเงิน</a>
+                                </li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                            </div>
+                </div>
                 </div>
             </div>
         </div>

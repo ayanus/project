@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/project/public/css/style.css">
 </head>
-    <body>
+    <>
     <div class="containerr">
         <?php include '../../../public/php/nav.php'; ?>
 
@@ -47,7 +47,20 @@
                 </div>
             </div>
     </div>
-
+    <script>
+        // เพิ่ม JavaScript สำหรับแสดง alert
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('success');
+            const errorMessage = urlParams.get('error');
+            
+            if (successMessage) {
+                alert(decodeURIComponent(successMessage));
+            } else if (errorMessage) {
+                alert(decodeURIComponent(errorMessage));
+            }
+        }
+    </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
