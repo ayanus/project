@@ -7,6 +7,12 @@
         </li>
 
         <li>
+                <a href="/project/src/employee/sale/show_sale.php">
+                    <span class="title">การขาย</span>
+                </a>
+            </li>
+
+        <li>
             <a href="/project/src/employee/bee/bee.php">
                 <span class="title">ข้อมูลผึ้ง</span>
             </a>
