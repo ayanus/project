@@ -38,9 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="true" href="payment.php">จ่ายเงินเดือนพนักงาน</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" aria-current="true" href="show_payment.php">ประวัติการจ่ายเงินเดือน</a>
-                        </li>
+                        </li> -->
                         </ul>
                     </div>
 
