@@ -44,11 +44,6 @@
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <label class="form-label">จำนวน(ลัง)</label>
-                                        <input type="text" class="form-control" name="quantity" required>
-                                    </div>
-
-                                    <div class="col-sm-2">
                                         <label class="form-label">อาหารที่ใช้เลี้ยง</label>
                                         <select class="form-select" aria-label="Default select example" id="type" name="bee_food">
                                             <?php

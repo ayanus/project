@@ -2,7 +2,7 @@
     session_start();
     include 'C:/xampp/htdocs/project/config/database.php';
     $bee_name = $_POST['bee_name'];
-    $quantity = $_POST['quantity'];
+    $quantity = "1";
     $bee_food = $_POST['bee_food'];
     $bee_detail = $_POST['bee_detail'];
 

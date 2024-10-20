@@ -79,6 +79,9 @@
                             <a class="nav-link" href="../ordermat/show_cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></a>
 
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="true" href="../ordermat/show_his_odrmat.php">ประวัติการสั่งซื้อ</a>
+                        </li>
                         </ul>
                     </div>
                     <div class="card-body">

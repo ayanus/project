@@ -28,6 +28,9 @@
                         <div class="card-header">
                             <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
+                                <a class="nav-link" aria-current="true" href="bee.php">ข้อมูลผึ้ง</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" aria-current="true" href="show_bee.php">ข้อมูลผึ้ง</a>
                             </li>
                             <li class="nav-item">
