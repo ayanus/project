@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $employee_id = $_POST['employee_id'];
 
     // 1 แพ็ค = 12 ขวด
-    $quantity_units = $quantity_packs * 13; // แปลงจำนวนแพ็คเป็นจำนวนขวด
+    $quantity_units = $quantity_packs * 12; // จำนวนสินค้า
 
     // เริ่มการทำธุรกรรม
     $conn->begin_transaction();
@@ -77,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt_update_bee_stock->execute();
 
                     // บันทึกการใช้ใน mat_use_detail
-                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id, ) VALUES (?, ?, )";
+                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id, b_keep_dt_id) VALUES (?, ?, ?)";
                     $stmt_mat_use_detail = $conn->prepare($sql_mat_use_detail);
-                    $stmt_mat_use_detail->bind_param("ii", $product_bee_id, $production_detail_id);
+                    $stmt_mat_use_detail->bind_param("iii", $product_bee_id, $production_detail_id, $b_keep_dt_id);
                     $stmt_mat_use_detail->execute();
 
                     $total_quantity_needed -= $bee_stock_quantity;
@@ -92,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt_update_bee_stock->execute();
 
                     // บันทึกการใช้ใน mat_use_detail
-                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id) VALUES (?, ?)";
+                    $sql_mat_use_detail = "INSERT INTO mat_use_detail (material_id, production_dt_id, b_keep_dt_id) VALUES (?, ?, ?)";
                     $stmt_mat_use_detail = $conn->prepare($sql_mat_use_detail);
-                    $stmt_mat_use_detail->bind_param("ii", $product_bee_id, $production_detail_id);
+                    $stmt_mat_use_detail->bind_param("iii", $product_bee_id, $production_detail_id);
                     $stmt_mat_use_detail->execute();
 
                     $total_quantity_needed = 0;
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $material_quantity_ = $material_stock['quantity'];
 
         // คำนวณจำนวนวัสดุที่ต้องใช้ (1 แพ็ค = 12 ขวด)
-        $total_materials_needed = $quantity_packs * 14;
+        $total_materials_needed = $quantity_packs * 12; // จำนวนวัสดุที่ต้องใช้
         $total_materials_needed_pack = $quantity_packs * 1;
 
         if ($material_stock_quantity >= $total_materials_needed) {
@@ -137,7 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // ยืนยันการทำธุรกรรม
         $conn->commit();
-        echo "การผลิตสำเร็จ";
+        echo "<script>alert('การผลิตสำเร็จ');</script>";
+        echo "<script>window.location = '../../products/show_pro.php';</script>";
+
 
     } catch (Exception $e) {
         // ยกเลิกการทำธุรกรรมหากมีข้อผิดพลาด

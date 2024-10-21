@@ -31,7 +31,7 @@
                                 <a class="nav-link" aria-current="true" href="bee.php">ข้อมูลผึ้ง</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="true" href="show_bee.php">ข้อมูลผึ้ง</a>
+                                <a class="nav-link" aria-current="true" href="show_bee.php">ข้อมูลผลผลิตจากผึ้ง</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="true" href="product_bee.php">ผลผลิตจากผึ้ง</a>
