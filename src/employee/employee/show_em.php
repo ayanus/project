@@ -44,7 +44,7 @@ include 'C:/xampp/htdocs/project/config/database.php';
         
         // เตรียม SQL statement โดยใช้ MySQLi
         $username = $_SESSION['username'];
-        $sql = "SELECT * FROM employee WHERE username = '$username'";
+        $sql = "SELECT employee.* , department.* FROM employee JOIN department ON department.department_id = employee.department_id WHERE username = '$username'";
         
         // ทำการ execute query
         $result = mysqli_query($conn, $sql);
@@ -87,7 +87,7 @@ include 'C:/xampp/htdocs/project/config/database.php';
 
                                         <div class="col-sm-4">
                                             <label class="form-label">แผนก</label>
-                                            <input type="text" class="form-control" name="department_name" value="<?= isset($row['department_id']) ? htmlspecialchars($row['department_id']) : '' ?>" readonly>
+                                            <input type="text" class="form-control" name="department_name" value="<?= isset($row['department_name']) ? htmlspecialchars($row['department_name']) : '' ?>" readonly>
                                         </div>
 
                                         <div class="col-sm-4">

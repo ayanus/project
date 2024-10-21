@@ -39,6 +39,7 @@
                                 <table class="table mt-4">
                                     <thead class="table-dark">
                                     <tr>
+                                        <th>รหัสการสั่งผลิต</th>
                                         <th>วันที่ผลิตสินค้า</th>
                                         <th>รายการ</th>
                                         <th>จำนวน</th>
@@ -53,21 +54,22 @@
                                         JOIN products ON products.product_id = productiondetail.product_id
                                         JOIN employee ON production.employee_id = employee.employee_id";
                                         $result = mysqli_query($conn, $sql);
-                                    if ($result) { // ตรวจสอบว่าคำสั่ง SQL สำเร็จหรือไม่
+                                    if ($result) {
                                         echo "<tbody>";
                                         while($row = mysqli_fetch_array($result)){ 
                                             ?>
                                             <tr>
+                                                <td><?php echo $row['production_id']; ?></td>
                                                 <td><?php echo $row['production_date']; ?></td>
                                                 <td><?php echo $row['product_name']; ?></td>
                                                 <td><?php echo $row['quantity']; ?></td>
-                                                <td><?php echo $row['employee_name']; ?></td> <!-- เปลี่ยนจาก 'employee' เป็น 'employee_name' -->
+                                                <td><?php echo $row['employee_name']; ?></td>
                                             </tr>
                                             <?php
                                         }
                                         echo "</tbody>";
                                     } else {
-                                        echo "Error: " . mysqli_error($conn); // แสดงข้อผิดพลาดถ้ามี
+                                        echo "Error: " . mysqli_error($conn);
                                     }
                                     ?>
 

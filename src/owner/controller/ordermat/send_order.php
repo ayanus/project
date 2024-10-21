@@ -62,7 +62,9 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                                VALUES ('$ordermat_id', '$material_id', '$supplier_id', '$quantity', '$price')";
 
                 if(mysqli_query($conn, $sql_detail)) {
-                    echo "บันทึกข้อมูลสำเร็จสำหรับ material_id: $material_id";
+                    echo "<script>alert('บันทึกข้อมูลสำเร็จสำหรับ material_id: $material_id');</script>";
+                    echo "<script>window.location = '../../materials/show_mat.php';</script>";
+
                 } else {
                     echo "เกิดข้อผิดพลาด: " . mysqli_error($conn);
                 }

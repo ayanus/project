@@ -24,7 +24,18 @@
             <div class="main">
                 <div class="container">    
                     <div class="header">พนักงาน</div>
-                    <div class="content"> 
+                    <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="true" href="show_em.php">ข้อมูลพนักงาน</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " aria-current="true" href="his_payment.php">ประวัติการจ่ายเงินเดือน</a>
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
                         <table class="table mt-4">
                             <thead class="table-dark ">
                             <tr>
@@ -32,7 +43,7 @@
                                 <th>ชื่อ - สกุล</th>
                                 <th>ตำแหน่งงาน</th>
                                 <th>สถานะเงินเดือน</th>
-                                <th>action</th>
+                                <th> </th>
                             </tr>
                             </thead>
                             
@@ -46,7 +57,8 @@
                                             e.email, 
                                             e.address, 
                                             d.department_name, 
-                                            s.status, 
+                                            s.status,
+                                            s.date, 
                                             e.account_name,
                                             e.bank, 
                                             e.account_num, 
@@ -68,7 +80,7 @@
                                 <td><?php echo $row['department_name']; ?></td>
                                 <td>
                                     <?php if($row['status'] == 'paid'): ?>
-                                        <a href="" class="badge bg-success ">จ่ายแล้ว</a>
+                                        <a href="" class="badge bg-success ">จ่ายแล้วเมื่อ <br> <?php echo $row['date']; ?></a>
                                     <?php else: ?>
                                         <a href="" class="badge bg-danger">ยังไม่จ่าย</a>
                                     <?php endif; ?>
@@ -76,10 +88,12 @@
                                 <td>
                                     <a href="payment.php?employee_id=<?php echo $row['employee_id']; ?>" class="btn btn-success">ดูข้อมูลเงินเดือน</a>
                                     <button class="btn btn-warning" data-toggle="modal" data-target="#employeeModal<?php echo $row['employee_id']; ?>">เพิ่มเติม</button>
-                                    <a href="../controller/employee/change_status.php?employee_id=<?php echo $row['employee_id']; ?>" class="btn btn-danger">จบการทำงาน</a>
+                                    <a href="../controller/employee/change_status.php?employee_id=<?php echo $row['employee_id']; ?>" class="btn btn-danger" onclick="return confirm('ต้องการจบการทำงานของพนักงานคนนี้ใช่หรือไม่?');">
+                                    จบการทำงาน</a>
                                 </td>
                             </tr>
                             </tbody>
+                        
 
                             <div class="modal fade" id="employeeModal<?php echo $row['employee_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -128,6 +142,8 @@
                             
 
                         </table>
+                            </div>
+                    </div>
                     </div>
                 </div>
             </div>

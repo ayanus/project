@@ -22,33 +22,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         if (!empty($row['end_date'])) {
-            $error = "Your account has been deactivated and you cannot log in.";
-        } else {
-
-        if ($password === $row['password']) {
-            // เก็บข้อมูลผู้ใช้ใน session
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['role'] = $row['role'];
-
-            // ตรวจสอบ role และนำทางไปยังหน้า home ที่เหมาะสม
-            switch ($row['role']) {
-                case 'owner':
-                    header("Location: src/owner/bee/show_bee.php");
-                    break;
-                case 'employee':
-                    header("Location: src/employee/employee/show_em.php");
-                    break;
-                default:
-                    header("Location: login.php");
-                    break;
-            }
+            // แสดง alert ว่าบัญชีถูกปิดใช้งาน
+            echo "<script>alert('คุณไม่มีสิทธ์เข้าสู่ระบบ');</script>";
+            echo "<script>window.location = 'login.php';</script>";
             exit();
         } else {
-            $error = "Password is incorrect.";
+            if ($password === $row['password']) {
+                // เก็บข้อมูลผู้ใช้ใน session
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['role'] = $row['role'];
+
+                // ตรวจสอบ role และนำทางไปยังหน้า home ที่เหมาะสม
+                switch ($row['role']) {
+                    case 'owner':
+                        header("Location: src/owner/bee/show_bee.php");
+                        break;
+                    case 'employee':
+                        header("Location: src/employee/employee/show_em.php");
+                        break;
+                    default:
+                        header("Location: login.php");
+                        break;
+                }
+                exit();
+            } else {
+                // แสดง alert เมื่อรหัสผ่านไม่ถูกต้อง
+                echo "<script>alert('รหัสผ่านไม่ถูกต้อง');</script>";
+                echo "<script>window.location = 'login.php';</script>";
+                exit();
+            }
         }
-    }
     } else {
-        $error = "No user found with that username.";
+        // แสดง alert เมื่อไม่พบผู้ใช้
+        echo "<script>alert('ไม่มีผู้ใช้งานรายนี้');</script>";
+        echo "<script>window.location = 'login.php';</script>";
+        exit();
     }
 
     $stmt->close();
