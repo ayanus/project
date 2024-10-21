@@ -211,7 +211,7 @@
                                             $hand=mysqli_query($conn,$sql); //ดึงข้อมูล database
                                             while($row=mysqli_fetch_array($hand)){
                                             ?>
-                                            <option value="<?=$row['department_id']?>"><?=$row['department_name']?></option>
+                                            <option value="<?=$row['department_name']?>"><?=$row['department_name']?></option>
                                             <?php 
                                                 } 
                                                 mysqli_close($conn)

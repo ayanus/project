@@ -55,7 +55,7 @@
                                         FROM employee e 
                                         LEFT JOIN salary s ON e.employee_id = s.employee_id 
                                         LEFT JOIN department d ON e.department_id = d.department_id 
-                                        WHERE e.role = 'employee' 
+                                        WHERE e.role = 'employee' AND e.end_date IS NULL
                                         ORDER BY e.employee_id";
                                 $result = mysqli_query($conn, $sql);
                                 while($row = mysqli_fetch_array($result)){ 
@@ -76,6 +76,7 @@
                                 <td>
                                     <a href="payment.php?employee_id=<?php echo $row['employee_id']; ?>" class="btn btn-success">ดูข้อมูลเงินเดือน</a>
                                     <button class="btn btn-warning" data-toggle="modal" data-target="#employeeModal<?php echo $row['employee_id']; ?>">เพิ่มเติม</button>
+                                    <a href="../controller/employee/change_status.php?employee_id=<?php echo $row['employee_id']; ?>" class="btn btn-danger">จบการทำงาน</a>
                                 </td>
                             </tr>
                             </tbody>

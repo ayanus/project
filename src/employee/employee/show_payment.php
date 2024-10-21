@@ -44,7 +44,8 @@ ini_set('display_errors', 1);
                         <?php
                         // ดึงข้อมูลจากตาราง salary
                         $sql = "SELECT s.*, e.employee_name FROM salary s 
-                                JOIN employee e ON s.employee_id = e.employee_id 
+                                JOIN employee e ON s.employee_id = e.employee_id
+                                WHERE e.username = '" . $_SESSION['username'] . "' 
                                 ORDER BY s.date DESC";
                         $result = mysqli_query($conn, $sql);
 

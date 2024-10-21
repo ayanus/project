@@ -21,6 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
+        if (!empty($row['end_date'])) {
+            $error = "Your account has been deactivated and you cannot log in.";
+        } else {
+
         if ($password === $row['password']) {
             // เก็บข้อมูลผู้ใช้ใน session
             $_SESSION['username'] = $row['username'];
@@ -42,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = "Password is incorrect.";
         }
+    }
     } else {
         $error = "No user found with that username.";
     }
